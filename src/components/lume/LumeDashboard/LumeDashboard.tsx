@@ -1,25 +1,21 @@
 import * as Dialog from "@radix-ui/react-dialog"
 import { Chain, useLume } from "../LumeProvider"
-import Logo from "../../../assets/lume-logo.png";
+import Logo from "../../../assets/lume-logo.png"
+import { cva } from "class-variance-authority"
+import { cn } from "../../utils"
 
-const SYNCSTATE_TO_TEXT: Record<Chain['syncState'], string> = {
-  done: 'Synced',
-  error: 'Issue',
-  syncing: 'Syncing'
+
+const SYNCSTATE_TO_TEXT: Record<Chain["syncState"], string> = {
+  done: "Synced",
+  error: "Issue",
+  syncing: "Syncing"
 }
-
-const SYNC_STATE_TO_TW_COLOR: Record<Chain['syncState'], string> = {
-  'done': 'text-primary',
-  'error': 'text-red-500',
-  'syncing': 'text-orange-500',
-}
-
 
 const LumeDashboard = () => {
   const { chains } = useLume()
 
-  const contentChains = chains.filter(c => c.type === 'content');
-  const blockchainChains = chains.filter(c => c.type === 'blockchain');
+  const contentChains = chains.filter((c) => c.type === "content")
+  const blockchainChains = chains.filter((c) => c.type === "blockchain")
 
   return (
     <Dialog.Root>
@@ -33,14 +29,24 @@ const LumeDashboard = () => {
           <div className="mt-4 mb-8">
             <h2 className="text-xl mb-4"> Content </h2>
             <div className="grid grid-cols-2">
-              {contentChains.map((chain, index) => <ChainIndicator key={`Content_ChainIndicator_${index}`} chain={chain} />)}
+              {contentChains.map((chain, index) => (
+                <ChainIndicator
+                  key={`Content_ChainIndicator_${index}`}
+                  chain={chain}
+                />
+              ))}
             </div>
           </div>
 
           <div className="mt-4 mb-8">
             <h2 className="text-xl mb-4"> Blockchain </h2>
             <div className="grid grid-cols-2">
-              {blockchainChains.map((chain, index) => <ChainIndicator key={`Blockchain_ChainIndicator_${index}`} chain={chain} />)}
+              {blockchainChains.map((chain, index) => (
+                <ChainIndicator
+                  key={`Blockchain_ChainIndicator_${index}`}
+                  chain={chain}
+                />
+              ))}
             </div>
           </div>
         </Dialog.Content>
@@ -49,14 +55,29 @@ const LumeDashboard = () => {
   )
 }
 
+const chainIndicatorVariant = cva("chainIndicatorVariant", {
+  variants: {
+    syncState: {
+      done: "text-primary",
+      error: "text-red-500",
+      syncing: "text-orange-500"
+    }
+  }
+});
 const ChainIndicator = ({ chain }: { chain: Chain }) => {
-  return <div key={chain.chainId} className="flex flex-row gap-x-2 items-center ">
-    <CircularProgress chain={chain} />
-    <div className="flex flex-col">
-      <span>{chain.name}</span>
-      <span className={`text-[12px] -mt-1 ${SYNC_STATE_TO_TW_COLOR[chain.syncState]}`}> {SYNCSTATE_TO_TEXT[chain.syncState]} </span>
+  return (
+    <div key={chain.chainId} className="flex flex-row gap-x-2 items-center ">
+      <CircularProgress chain={chain} />
+      <div className="flex flex-col">
+        <span>{chain.name}</span>
+        <span
+          className={cn(['text-[12px] -mt-1', chainIndicatorVariant({syncState: chain.syncState})])}
+        >
+          {SYNCSTATE_TO_TEXT[chain.syncState]}
+        </span>
+      </div>
     </div>
-  </div>
+  )
 }
 
 const CircularProgress = ({
@@ -71,7 +92,7 @@ const CircularProgress = ({
 
   return (
     <svg
-      className={`${className} ${SYNC_STATE_TO_TW_COLOR[chain.syncState]}`}
+      className={cn([className, chainIndicatorVariant({syncState: chain.syncState})])}
       width="36"
       height="36"
       viewBox="0 0 100 100"

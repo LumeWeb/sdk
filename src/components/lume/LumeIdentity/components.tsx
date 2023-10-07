@@ -7,7 +7,7 @@ import React from "react";
 import { useLumeIndentity } from "./LumeIdentityContext";
 
 // Extracted components
-const SubmitButtonComponent = ({ }) => {
+const SubmitButtonComponent = () => {
   const { setVisibleComponent } = useSwitchableComponent();
   return (
     <Button className='w-full h-12' variant={"outline"} onClick={() => setVisibleComponent(components.SeedPhraseInput)}>
@@ -16,7 +16,7 @@ const SubmitButtonComponent = ({ }) => {
   )
 };
 
-const SeedPhraseInputComponent = ({ }) => {
+const SeedPhraseInputComponent = () => {
   const { signIn } = useLumeIndentity();
   return (
     <m.form className='flex-col flex gap-y-4' onSubmit={(e) => {
@@ -57,7 +57,7 @@ const SetupAccountKeyComponent = () => {
       transition={{ type: "just", delay: 0.1 }}
       className="min-h-12 h-full max-w-full"
       style={{ maxWidth: width ?? 'auto' }}
-      ref={(t) => setTimeout(() => setWidth(t?.getBoundingClientRect().width!), 0)}
+      ref={(t) => setTimeout(() => setWidth(t!.getBoundingClientRect().width!), 0)}
     >
       <Button className='w-full h-full' onClick={() => setVisibleComponent(components.SeedPhraseGeneration)}>
         <span className="text-center text-lg font-normal leading-normal">I get it, I'll keep it safe. Let's see the key.</span>

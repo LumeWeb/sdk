@@ -8,9 +8,7 @@ import { LumeIdentityContext, Session } from './LumeIdentityContext';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import * as Dialog from '@radix-ui/react-dialog';
 
-type Props = {}
-
-const LumeIdentity: React.FC<Props> = ({}) => {
+const LumeIdentity: React.FC = () => {
   const { visibleComponent, setVisibleComponent } = useSwitchableComponent(ComponentList.SubmitButton)
 
   const isSubmitButtonInView = [ComponentList.SubmitButton.index].includes(visibleComponent.index)
@@ -81,4 +79,4 @@ export default function Wrapped() {
       </Dialog.Portal>
     </Dialog.Root>
   </LumeIdentityContext.Provider>
-};
+}
