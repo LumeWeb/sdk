@@ -10,7 +10,7 @@ import { useLumeIndentity } from "./LumeIdentityContext";
 const SubmitButtonComponent = () => {
   const { setVisibleComponent } = useSwitchableComponent();
   return (
-    <Button className='w-full h-12' variant={"outline"} onClick={() => setVisibleComponent(components.SeedPhraseInput)}>
+    <Button className='w-full h-12' variant={"outline"} onClick={() => setVisibleComponent(SeedPhraseInput)}>
       <span className="text-center text-lg font-normal leading-normal">Sign in with Account Key</span>
     </Button>
   )
@@ -59,7 +59,7 @@ const SetupAccountKeyComponent = () => {
       style={{ maxWidth: width ?? 'auto' }}
       ref={(t) => setTimeout(() => setWidth(t!.getBoundingClientRect().width!), 0)}
     >
-      <Button className='w-full h-full' onClick={() => setVisibleComponent(components.SeedPhraseGeneration)}>
+      <Button className='w-full h-full' onClick={() => setVisibleComponent(SeedPhraseGeneration)}>
         <span className="text-center text-lg font-normal leading-normal">I get it, I'll keep it safe. Let's see the key.</span>
       </Button>
     </m.div>
@@ -139,12 +139,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
   )
 };
 
-// Usage
-const components = {
-  SubmitButton: makeSwitchable(SubmitButtonComponent, 'submit-button'),
-  SeedPhraseInput: makeSwitchable(SeedPhraseInputComponent, 'seed-phrase-input'),
-  SetupAccountKey: makeSwitchable(SetupAccountKeyComponent, 'setup-account-key'),
-  SeedPhraseGeneration: makeSwitchable(SeedPhraseGenerationComponent, 'seed-phrase-form'),
-};
-
-export default components;
+export const SubmitButton = makeSwitchable(SubmitButtonComponent, 'submit-button');
+export const SeedPhraseInput = makeSwitchable(SeedPhraseInputComponent, 'seed-phrase-input');
+export const SetupAccountKey = makeSwitchable(SetupAccountKeyComponent, 'setup-account-key');
+export const SeedPhraseGeneration = makeSwitchable(SeedPhraseGenerationComponent, 'seed-phrase-form');
