@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "composite": true,
+      "typeRoots": ["src/vite-env.d.ts"]
+    },
+    "include": [
+      "src"
+    ],
+    "exclude": [
+        "**/*.stories.tsx"
+    ],
+    "references": [
+      {
+        "path": "./tsconfig.json"
+      }
+    ]
+  }
+  
