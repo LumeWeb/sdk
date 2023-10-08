@@ -1,12 +1,11 @@
 import React from 'react';
-
-import LumeLogoBg from '../../../assets/lume-logo-bg.svg?react';
 import { Button } from '../../../components/ui/button';
 import { SwitchableComponent, SwitchableComponentProvider, useSwitchableComponent } from '../../../components/SwitchableComponent';
 import * as ComponentList from "./components";
 import { LumeIdentityContext, Session } from './LumeIdentityContext';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import * as Dialog from '@radix-ui/react-dialog';
+import LumeLogoBg from './LumeLogoBg';
 
 const LumeIdentity: React.FC = () => {
   const { visibleComponent, setVisibleComponent } = useSwitchableComponent(ComponentList.SubmitButton)
