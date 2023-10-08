@@ -1,9 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+import {type Config} from "tailwindcss";
+
 export default {
   darkMode: ["class"],
-  // prefix: 'lume-sdk-',
   content: [
     './src/**/*.{ts,tsx}',
+  ],
+  safelist: [
+    'text-primary',
+    'text-red-500',
+    'text-orange-500',
   ],
   theme: {
     container: {
@@ -56,12 +61,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
       },
       animation: {
@@ -70,5 +75,5 @@ export default {
       },
     },
   },
-  plugins: [import("tailwindcss-animate")],
-}
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config
