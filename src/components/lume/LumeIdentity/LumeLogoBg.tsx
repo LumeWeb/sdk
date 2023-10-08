@@ -3,7 +3,7 @@ import React from "react";
 const LumeLogoBg = ({ className }: { className: string }) => {
   return <svg className={className} width="524" height="500" viewBox="0 0 524 500" fill="none" xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink">
-    <mask id="mask0_902_66" style="mask-type: alpha;" maskUnits="userSpaceOnUse" x="-2" y="-1" width="404"
+    <mask id="mask0_902_66" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="-2" y="-1" width="404"
       height="349">
       <rect x="-1.04292" y="346.31" width="346.913" height="401.713" transform="rotate(-89.8152 -1.04292 346.31)"
         fill="url(#pattern0)" />
