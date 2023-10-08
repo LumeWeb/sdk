@@ -25,7 +25,8 @@ type LumeContext = {
 const LumeContext = React.createContext<LumeContext | undefined>(undefined);
 
 const LumeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [lume, setLume] = React.useState<LumeObject>({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [lume, _setLume] = React.useState<LumeObject>({
     chains: [
       {
         name: 'Ethereum',
