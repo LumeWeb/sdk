@@ -1,3 +1,5 @@
+import React from "react";
+
 const LumeLogoBg = ({ className }: { className: string }) => {
   return <svg className={className} width="524" height="500" viewBox="0 0 524 500" fill="none" xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink">
