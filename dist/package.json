@@ -1,1 +1,0 @@
-{"name":"@lume-sdk/components","version":"0.0.0","main":"./lib.umd.js","module":"./lib.es.js","types":"./src/main.d.ts","files":["./src","./style.css"],"peerDependencies":{"react":"^18.2.0","react-dom":"^18.2.0"}}
