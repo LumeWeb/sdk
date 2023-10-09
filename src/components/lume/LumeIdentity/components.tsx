@@ -13,6 +13,13 @@ import { AnimatePresence, m } from "framer-motion";
 import { useLumeIndentity } from "./LumeIdentityContext";
 import { useMemo, useState } from "react";
 
+import * as bip39 from "@scure/bip39";
+import { wordlist } from "@scure/bip39/wordlists/english";
+
+async function seedToKey(seed: string) {
+  return bip39.mnemonicToSeed(seed);
+}
+
 // Extracted components
 const SubmitButtonComponent = () => {
   const { setVisibleComponent } = useSwitchableComponent();
@@ -20,8 +27,7 @@ const SubmitButtonComponent = () => {
     <Button
       className="w-full h-12"
       variant={"outline"}
-      onClick={() => setVisibleComponent(SeedPhraseInput)}
-    >
+      onClick={() => setVisibleComponent(SeedPhraseInput)}>
       <span className="text-center text-lg font-normal leading-normal">
         Sign in with Account Key
       </span>
@@ -34,7 +40,7 @@ const SeedPhraseInputComponent = () => {
   return (
     <m.form
       className="flex-col flex gap-y-4"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
           elements: {
@@ -42,17 +48,15 @@ const SeedPhraseInputComponent = () => {
           };
         };
         const seedPhrase = target.elements.seedPhrase.value;
-        signIn(seedPhrase);
-      }}
-    >
+        signIn(await seedToKey(seedPhrase));
+      }}>
       <Input className="h-12 w-full text-lg" name="seedPhrase" />
       <m.div
         initial={{ y: 50 }}
         animate={{ y: 0 }}
         exit={{ y: -50 }}
         transition={{ type: "just", delay: 0.1 }}
-        className="h-12"
-      >
+        className="h-12">
         <Button className="w-full h-full" role="submit">
           <span className="text-center text-lg font-normal leading-normal">
             Sign in
@@ -77,12 +81,10 @@ const SetupAccountKeyComponent = () => {
       style={{ maxWidth: width ?? "auto" }}
       ref={(t) =>
         setTimeout(() => setWidth(t!.getBoundingClientRect().width!), 0)
-      }
-    >
+      }>
       <Button
         className="w-full h-full"
-        onClick={() => setVisibleComponent(SeedPhraseGeneration)}
-      >
+        onClick={() => setVisibleComponent(SeedPhraseGeneration)}>
         <span className="text-center text-lg font-normal leading-normal">
           I get it, I'll keep it safe. Let's see the key.
         </span>
@@ -99,8 +101,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
   const { signIn } = useLumeIndentity();
 
   const phrases = useMemo(() => {
-    // TODO: Replace with actual BIP39 or whatever is used for phrase generation
-    return Array(phraseLength).fill("a phrase");
+    return bip39.generateMnemonic(wordlist, phraseLength).split(" ");
   }, [phraseLength]);
 
   const key = useMemo(() => {
@@ -127,16 +128,14 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
               right: -20,
               bottom: 120,
             }}
-            transition={{ type: "tween", duration: 0.1 }}
-          ></m.div>
+            transition={{ type: "tween", duration: 0.1 }}></m.div>
         ) : null}
       </AnimatePresence>
       <div className="z-20 relative mb-2.5 w-full h-full flex-wrap justify-center items-center gap-2.5 inline-flex">
         {phrases.map((phrase, index) => (
           <div
             key={`SeedPhrase_${index}`}
-            className={`justify-center items-center gap-2.5 flex w-[calc(33%-10px)] h-10 rounded border border-current relative ring-current text-neutral-700`}
-          >
+            className={`justify-center items-center gap-2.5 flex w-[calc(33%-10px)] h-10 rounded border border-current relative ring-current text-neutral-700`}>
             <span className=" text-white text-md font-normal leading-normal w-full h-fit px-2.5 bg-transparent text-center">
               {phrase}
             </span>
@@ -152,8 +151,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
-              transition={{ type: "linear", delay: 0.2, duration: 0.5 }}
-            >
+              transition={{ type: "linear", delay: 0.2, duration: 0.5 }}>
               <ExclamationTriangleIcon className="w-14 h-14" />
               <span>Make sure to write this down for safe keeping.</span>
             </m.div>
@@ -166,8 +164,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
               : ""
           }`}
           variant="outline"
-          onClick={copyPhrasesToClipboard}
-        >
+          onClick={copyPhrasesToClipboard}>
           {buttonClickedState === "clicked" ? (
             <CheckIcon className="w-5 h-5 mr-2.5" />
           ) : (
@@ -180,8 +177,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
         <Button
           className="z-20 w-full h-12 text-white bg-neutral-700 hover:bg-neutral-800"
           variant="secondary"
-          onClick={() => setStep(1)}
-        >
+          onClick={() => setStep(1)}>
           Continue
         </Button>
       ) : null}
@@ -192,9 +188,10 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            transition={{ type: "linear", delay: 2, duration: 0.5 }}
-          >
-            <Button className="w-full h-full" onClick={() => signIn(key)}>
+            transition={{ type: "linear", delay: 2, duration: 0.5 }}>
+            <Button
+              className="w-full h-full"
+              onClick={async () => signIn(await seedToKey(key))}>
               Sign In
             </Button>
           </m.div>
@@ -206,17 +203,17 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
 
 export const SubmitButton = makeSwitchable(
   SubmitButtonComponent,
-  "submit-button"
+  "submit-button",
 );
 export const SeedPhraseInput = makeSwitchable(
   SeedPhraseInputComponent,
-  "seed-phrase-input"
+  "seed-phrase-input",
 );
 export const SetupAccountKey = makeSwitchable(
   SetupAccountKeyComponent,
-  "setup-account-key"
+  "setup-account-key",
 );
 export const SeedPhraseGeneration = makeSwitchable(
   SeedPhraseGenerationComponent,
-  "seed-phrase-form"
+  "seed-phrase-form",
 );
