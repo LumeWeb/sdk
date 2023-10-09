@@ -1,3 +1,11 @@
+# [0.1.0-develop.6](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.5...v0.1.0-develop.6) (2023-10-09)
+
+
+### Bug Fixes
+
+* lib working weirdly not anymore ([7f30d90](https://git.lumeweb.com/LumeWeb/sdk/commit/7f30d9091a4f07b5b0d692c3fdaeebd0001a29e5))
+* modal not showing ([4e5b8a5](https://git.lumeweb.com/LumeWeb/sdk/commit/4e5b8a5eab0f7fb6dd9f62b3304724a327024426))
+
 # [0.1.0-develop.5](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.4...v0.1.0-develop.5) (2023-10-09)
 
 # [0.1.0-develop.4](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.3...v0.1.0-develop.4) (2023-10-09)
