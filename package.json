@@ -1,6 +1,5 @@
 {
     "name": "@lumeweb/sdk",
-    "private": true,
     "version": "0.1.0-develop.2",
     "type": "module",
     "main": "src/index.ts",
