@@ -6,7 +6,6 @@ import svgr from "vite-plugin-svgr";
 import dts from "vite-plugin-dts";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import optimizer from "vite-plugin-optimizer";
-// import css from 'rollup-plugin-css-only'
 
 // https://vitejs.dev/config/
 export default defineConfig({
