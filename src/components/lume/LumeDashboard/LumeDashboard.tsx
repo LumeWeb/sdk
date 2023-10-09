@@ -38,9 +38,9 @@ const LumeDashboard = () => {
                 {networks
                   .filter((network) => network.type === type)
                   .map((network, networkIndex) => (
-                    <ChainIndicator
+                    <NetworkIndicator
                       key={`${type}_ChainIndicator_${networkIndex}`}
-                      chain={network}
+                      network={network}
                     />
                   ))}
               </div>
@@ -61,19 +61,19 @@ const chainIndicatorVariant = cva("chainIndicatorVariant", {
     },
   },
 });
-const ChainIndicator = ({ chain }: { chain: Network }) => {
+const NetworkIndicator = ({ network }: { network: Network }) => {
   return (
-    <div key={chain.chainId} className="flex flex-row gap-x-2 items-center ">
-      <CircularProgress chain={chain} />
+    <div key={network.id} className="flex flex-row gap-x-2 items-center ">
+      <CircularProgress chain={network} />
       <div className="flex flex-col">
-        <span>{chain.name}</span>
+        <span>{network.name}</span>
         <span
           className={cn([
             "text-[12px] -mt-1",
-            chainIndicatorVariant({ syncState: chain.syncState }),
+            chainIndicatorVariant({ syncState: network.syncState }),
           ])}
         >
-          {SYNCSTATE_TO_TEXT[chain.syncState]}
+          {SYNCSTATE_TO_TEXT[network.syncState]}
         </span>
       </div>
     </div>
