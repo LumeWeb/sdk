@@ -1,6 +1,6 @@
 {
     "name": "@lumeweb/sdk",
-    "version": "0.1.0-develop.2",
+    "version": "0.1.0-develop.3",
     "type": "module",
     "main": "lib/lib.umd.js",
     "module": "lib/lib.es.js",
