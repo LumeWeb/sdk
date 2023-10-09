@@ -70,6 +70,7 @@ const LumeProvider = ({ children }: { children: ReactNode }) => {
           type,
           name,
           id: module,
+          syncState: "syncing",
         };
 
         // Subscribe to status updates
