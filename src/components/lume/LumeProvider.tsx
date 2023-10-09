@@ -14,12 +14,14 @@ export interface Network extends NetworkStatus {
   name: string;
   id: string;
   type: string;
+  syncState: "done" | "syncing" | "error";
 }
 
 interface NetworkStatus {
   sync: number;
   peers: number;
   ready: boolean;
+  error?: string;
 }
 
 type LumeObject = {
@@ -40,17 +42,14 @@ const LumeProvider = ({ children }: { children: ReactNode }) => {
   // Map to store unsubscribe functions for client.status subscriptions
   const statusUnsubs = useRef(new Map());
 
-  const handleStatusUpdate = useCallback(
-    (id: string, newStatus: NetworkStatus) => {
-      setLume((prevLume) => {
-        const updatedNetworks = prevLume.networks.map((network) =>
-          network.id === id ? { ...network, ...newStatus } : network
-        );
-        return { ...prevLume, networks: updatedNetworks };
-      });
-    },
-    []
-  );
+  const handleStatusUpdate = useCallback((id: string, newStatus: Network) => {
+    setLume((prevLume) => {
+      const updatedNetworks = prevLume.networks.map((network) =>
+        network.id === id ? { ...network, ...newStatus } : network
+      );
+      return { ...prevLume, networks: updatedNetworks };
+    });
+  }, []);
 
   const update = async () => {
     const types = await networkRegistry.getTypes();
@@ -74,9 +73,17 @@ const LumeProvider = ({ children }: { children: ReactNode }) => {
         };
 
         // Subscribe to status updates
-        const statusUnsub = client.status((newStatus: NetworkStatus) =>
-          handleStatusUpdate(module, newStatus)
-        );
+        const statusUnsub = client.status((newStatus: NetworkStatus) => {
+          let syncState = "syncing";
+
+          if (newStatus.ready) {
+            syncState = "done";
+          } else if (newStatus.error) {
+            syncState = "error";
+          }
+
+          handleStatusUpdate(module, { ...newStatus, syncState });
+        });
         newStatusUnsubs.set(module, statusUnsub);
 
         newNetworksMap.set(module, network); // Store network in map to prevent duplicates
