@@ -5,7 +5,6 @@ import {
   useSwitchableComponent,
 } from "../../SwitchableComponent";
 import * as ComponentList from "./components";
-import { LumeIdentityContext, Session } from "./LumeIdentityContext";
 import { LazyMotion, domAnimation } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
 import LumeLogoBg from "./LumeLogoBg";
@@ -109,24 +108,21 @@ const LumeIdentity: FC = () => {
 // hitting my screen, it is almost impossible to see whats happening the outline
 // buttons have no contrast
 export default function Wrapped() {
-  const [session, setSession] = useState<Session>();
   return (
-    <LumeIdentityContext.Provider value={{ session, setSession }}>
-      <Dialog.Root>
-        <Dialog.Trigger asChild>
-          <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
-            Open Lume
-          </button>
-        </Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay className="bg-black/90 data-[state=open]:animate-overlayShow fixed inset-0" />
-          <Dialog.Content className="w-full h-full flex items-center justify-center">
-            <SwitchableComponentProvider>
-              <LumeIdentity />
-            </SwitchableComponentProvider>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    </LumeIdentityContext.Provider>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
+          Open Lume
+        </button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/90 data-[state=open]:animate-overlayShow fixed inset-0" />
+        <Dialog.Content className="w-full h-full flex items-center justify-center">
+          <SwitchableComponentProvider>
+            <LumeIdentity />
+          </SwitchableComponentProvider>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
