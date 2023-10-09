@@ -1,11 +1,11 @@
 {
-    "name": "@lumreb/sdk",
+    "name": "@lumeweb/sdk",
     "version": "0.1.0-develop.2",
     "lockfileVersion": 3,
     "requires": true,
     "packages": {
         "": {
-            "name": "@lumreb/sdk",
+            "name": "@lumeweb/sdk",
             "version": "0.1.0-develop.2",
             "dependencies": {
                 "@lumeweb/kernel-network-registry-client": "0.1.0-develop.10",
