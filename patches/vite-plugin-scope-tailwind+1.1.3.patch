@@ -1,0 +1,21 @@
+diff --git a/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs b/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs
+index 9594d38..824fafe 100644
+--- a/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs
++++ b/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs
+@@ -111,6 +111,7 @@ const S = ({
+   return r.match(t) ? r.replace(/class: "/g, `class: "${e} `) : r;
+ }, g = P("d"), M = ({
+   react: e = !1,
++  classNameTransformers = [],
+   ignore: r = []
+ } = {}) => ({
+   name: "vite-plugin-scope-tailwind",
+@@ -131,7 +132,7 @@ const S = ({
+       }
+     };
+   },
+-  transform: e ? $(g) : k(g)
++  transform: e ? $(g, classNameTransformers) : k(g)
+ });
+ export {
+   M as default
