@@ -1,3 +1,10 @@
+# [0.1.0-develop.3](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.2...v0.1.0-develop.3) (2023-10-09)
+
+
+### Bug Fixes
+
+* remove private from package.json ([2ef8e09](https://git.lumeweb.com/LumeWeb/sdk/commit/2ef8e09346c81af4ce4b6971a11d6d0905a7de3f))
+
 # [0.1.0-develop.2](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.1...v0.1.0-develop.2) (2023-10-09)
 
 
