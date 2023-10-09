@@ -20,6 +20,23 @@ async function seedToKey(seed: string) {
   return bip39.mnemonicToSeed(seed);
 }
 
+function getStrength(wordCount: number) {
+  switch (wordCount) {
+    case 12:
+      return 128;
+    case 15:
+      return 160;
+    case 18:
+      return 192;
+    case 21:
+      return 224;
+    case 24:
+      return 256;
+    default:
+      throw new Error("Invalid word count");
+  }
+}
+
 // Extracted components
 const SubmitButtonComponent = () => {
   const { setVisibleComponent } = useSwitchableComponent();
@@ -101,7 +118,9 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
   const { signIn } = useLumeIndentity();
 
   const phrases = useMemo(() => {
-    return bip39.generateMnemonic(wordlist, phraseLength).split(" ");
+    return bip39
+      .generateMnemonic(wordlist, getStrength(phraseLength))
+      .split(" ");
   }, [phraseLength]);
 
   const key = useMemo(() => {
