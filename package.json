@@ -11,6 +11,7 @@
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build"
     },
+    "files": ["lib"],
     "dependencies": {
         "@lumeweb/kernel-network-registry-client": "0.1.0-develop.10",
         "@lumeweb/libkernel": "0.1.0-develop.65",
