@@ -1,21 +1,26 @@
-import * as Dialog from "@radix-ui/react-dialog"
-import { Chain, useLume } from "../LumeProvider"
-import Logo from "../../../assets/lume-logo.png"
-import { cva } from "class-variance-authority"
-import { cn } from "../../utils"
+import * as Dialog from "@radix-ui/react-dialog";
+import { Network, useLume } from "../LumeProvider";
+import Logo from "../../../assets/lume-logo.png";
+import { cva } from "class-variance-authority";
+import { cn } from "../../utils";
+import { useState } from "react";
 
-
-const SYNCSTATE_TO_TEXT: Record<Chain["syncState"], string> = {
+const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   done: "Synced",
   error: "Issue",
-  syncing: "Syncing"
-}
+  syncing: "Syncing",
+};
 
 const LumeDashboard = () => {
-  const { chains } = useLume()
+  const { networks } = useLume();
 
-  const contentChains = chains.filter((c) => c.type === "content")
-  const blockchainChains = chains.filter((c) => c.type === "blockchain")
+  const [uniqueNetworkTypes, setUniqueNetworkTypes] = useState<string[]>([]);
+
+  useEffect(() => {
+    const networkTypes = networks.map((network) => network.type);
+    const uniqueTypes = Array.from(new Set(networkTypes));
+    setUniqueNetworkTypes(uniqueTypes);
+  }, [networks]);
 
   return (
     <Dialog.Root>
@@ -26,73 +31,71 @@ const LumeDashboard = () => {
           <div className="w-[calc(100%+38px)] border-b pb-3 -mx-5 px-5 border-neutral-900">
             <img src={Logo} className="w-24" />
           </div>
-          <div className="mt-4 mb-8">
-            <h2 className="text-xl mb-4"> Content </h2>
-            <div className="grid grid-cols-2">
-              {contentChains.map((chain, index) => (
-                <ChainIndicator
-                  key={`Content_ChainIndicator_${index}`}
-                  chain={chain}
-                />
-              ))}
+          {uniqueNetworkTypes.map((type, index) => (
+            <div className="mt-4 mb-8" key={`NetworkTypeSection_${index}`}>
+              <h2 className="text-xl mb-4">{type}</h2>
+              <div className="grid grid-cols-2">
+                {networks
+                  .filter((network) => network.type === type)
+                  .map((network, networkIndex) => (
+                    <ChainIndicator
+                      key={`${type}_ChainIndicator_${networkIndex}`}
+                      chain={network}
+                    />
+                  ))}
+              </div>
             </div>
-          </div>
-
-          <div className="mt-4 mb-8">
-            <h2 className="text-xl mb-4"> Blockchain </h2>
-            <div className="grid grid-cols-2">
-              {blockchainChains.map((chain, index) => (
-                <ChainIndicator
-                  key={`Blockchain_ChainIndicator_${index}`}
-                  chain={chain}
-                />
-              ))}
-            </div>
-          </div>
+          ))}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
+  );
+};
 
 const chainIndicatorVariant = cva("chainIndicatorVariant", {
   variants: {
     syncState: {
       done: "text-primary",
       error: "text-red-500",
-      syncing: "text-orange-500"
-    }
-  }
+      syncing: "text-orange-500",
+    },
+  },
 });
-const ChainIndicator = ({ chain }: { chain: Chain }) => {
+const ChainIndicator = ({ chain }: { chain: Network }) => {
   return (
     <div key={chain.chainId} className="flex flex-row gap-x-2 items-center ">
       <CircularProgress chain={chain} />
       <div className="flex flex-col">
         <span>{chain.name}</span>
         <span
-          className={cn(['text-[12px] -mt-1', chainIndicatorVariant({syncState: chain.syncState})])}
+          className={cn([
+            "text-[12px] -mt-1",
+            chainIndicatorVariant({ syncState: chain.syncState }),
+          ])}
         >
           {SYNCSTATE_TO_TEXT[chain.syncState]}
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const CircularProgress = ({
   chain,
-  className
+  className,
 }: {
-  chain: Chain
-  className?: string
+  chain: Network;
+  className?: string;
 }) => {
-  const progressOffset = ((100 - chain.progress) / 100) * 282.74 // These math are not mathing
-  const textOffset = (chain.progress / 100) * (30 - 44) + 44
+  const progressOffset = ((100 - chain.progress) / 100) * 282.74; // These math are not mathing
+  const textOffset = (chain.progress / 100) * (30 - 44) + 44;
 
   return (
     <svg
-      className={cn([className, chainIndicatorVariant({syncState: chain.syncState})])}
+      className={cn([
+        className,
+        chainIndicatorVariant({ syncState: chain.syncState }),
+      ])}
       width="36"
       height="36"
       viewBox="0 0 100 100"
@@ -106,33 +109,33 @@ const CircularProgress = ({
         cy="50"
         fill="transparent"
         stroke="#e0e0e0"
-        stroke-width="4px"
-        stroke-dasharray="282.74px"
-        stroke-dashoffset="0"
+        strokeWidth="4px"
+        strokeDasharray="282.74px"
+        strokeDashoffset="0"
       ></circle>
       <circle
         r="45"
         cx="50"
         cy="50"
         stroke="currentColor"
-        stroke-width="4px"
-        stroke-linecap="round"
-        stroke-dashoffset={`${progressOffset}px`}
+        strokeWidth="4px"
+        strokeLinecap="round"
+        strokeDashoffset={`${progressOffset}px`}
         fill="transparent"
-        stroke-dasharray="282.74px"
+        strokeDasharray="282.74px"
       ></circle>
       <text
         x={textOffset}
         y="57.5px"
         fill="currentColor"
-        font-size="26px"
-        font-weight="normal"
+        fontSize="26px"
+        fontWeight="normal"
         style={{ transform: "rotate(90deg) translate(0px, -98px)" }}
       >
         {chain.progress}
       </text>
     </svg>
-  )
-}
+  );
+};
 
-export default LumeDashboard
+export default LumeDashboard;
