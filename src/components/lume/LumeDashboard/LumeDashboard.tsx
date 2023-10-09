@@ -3,7 +3,7 @@ import { Network, useLume } from "../LumeProvider";
 import Logo from "../../../assets/lume-logo.png";
 import { cva } from "class-variance-authority";
 import { cn } from "../../utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   done: "Synced",
