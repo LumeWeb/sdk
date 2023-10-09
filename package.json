@@ -5,11 +5,16 @@
     "type": "module",
     "main": "src/index.ts",
     "types": "./src/main.ts",
+    "repository": {
+        "type": "git",
+        "url": "gitea@git.lumeweb.com:LumeWeb/sdk.git"
+    },
     "scripts": {
         "prepare": "presetter bootstrap",
         "build": "run build",
         "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "build-storybook": "storybook build",
+        "semantic-release": "semantic-release"
     },
     "files": [
         "lib"
