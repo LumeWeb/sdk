@@ -1,0 +1,32 @@
+{
+    "preset": [
+        "@lumeweb/node-library-preset"
+    ],
+    "config": {
+        "tsconfig": {
+            "compilerOptions": {
+                "moduleResolution": "bundler",
+                "typeRoots": [
+                    "src/vite-env.d.ts"
+                ],
+                "jsx": "react-jsx"
+            }
+        },
+        "tsconfig.build": {
+            "include": ["{buildSource}"],
+            "compilerOptions": {
+                "outDir": "{source}"
+            }
+        }
+    },
+    "variable": {
+        "source": "build",
+        "output": "lib",
+        "buildSource": "src"
+    },
+    "scripts": {
+        "build:vite": "vite build",
+        "build": "cross-env NODE_ENV=production run-s clean  build:typescript:* build:vite",
+        "clean:buildOutput": "shx rm -rf {source}"
+    }
+}
