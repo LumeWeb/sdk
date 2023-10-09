@@ -1,62 +1,113 @@
-import React, { useContext } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import type { ReactNode } from "react";
+import { createClient as createNetworkRegistryClient } from "@lumeweb/kernel-network-registry-client";
+import { createNetworkClient } from "@lumeweb/libkernel/module";
 
-type LumeSyncState = 'syncing' | 'done' | 'error'
+export interface Network extends NetworkStatus {
+  name: string;
+  id: string;
+  type: string;
+}
 
-export type Chain = {
-  syncState: LumeSyncState,
-  name: string,
-  chainId: string,
-  active: boolean,
-  progress: number, // in porcentage
-  logs: string[],
-  type: 'blockchain' | 'content',
-  peerCount?: number
+interface NetworkStatus {
+  sync: number;
+  peers: number;
+  ready: boolean;
 }
 
 type LumeObject = {
-  chains: Chain[],
-  activeResolver: 'local' | 'rpc'
-}
+  networks: Network[];
+};
 
 type LumeContext = {
-  lume: LumeObject
-}
+  lume: LumeObject;
+};
 
-const LumeContext = React.createContext<LumeContext | undefined>(undefined);
+const networkRegistry = createNetworkRegistryClient();
 
-const LumeProvider = ({ children }: { children: React.ReactNode }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [lume, _setLume] = React.useState<LumeObject>({
-    chains: [
-      {
-        name: 'Ethereum',
-        syncState: 'done',
-        chainId: '1',
-        active: true,
-        progress: 100,
-        logs: [],
-        type: 'blockchain'
-      },
-      {
-        name: "IPFS",
-        syncState: 'syncing',
-        chainId: '2',
-        active: false,
-        progress: 50,
-        logs: [],
-        type: 'content',
-        peerCount: 3
+const LumeContext = createContext<LumeContext | undefined>(undefined);
+
+const LumeProvider = ({ children }: { children: ReactNode }) => {
+  const [lume, setLume] = useState<LumeObject>({ networks: [] });
+
+  // Map to store unsubscribe functions for client.status subscriptions
+  const statusUnsubs = useRef(new Map());
+
+  const handleStatusUpdate = useCallback(
+    (id: string, newStatus: NetworkStatus) => {
+      setLume((prevLume) => {
+        const updatedNetworks = prevLume.networks.map((network) =>
+          network.id === id ? { ...network, ...newStatus } : network
+        );
+        return { ...prevLume, networks: updatedNetworks };
+      });
+    },
+    []
+  );
+
+  const update = async () => {
+    const types = await networkRegistry.getTypes();
+    const newNetworksMap = new Map(); // Use a Map to prevent duplicates based on chainId
+    const newStatusUnsubs = new Map();
+
+    for (const type of types) {
+      const list = await networkRegistry.getNetworksByType(type);
+
+      for (const module of list) {
+        const client = createNetworkClient(module);
+        const name = await client.name();
+
+        const network: Network = {
+          peers: 0,
+          ready: false,
+          sync: 0,
+          type,
+          name,
+          id: module,
+        };
+
+        // Subscribe to status updates
+        const statusUnsub = client.status((newStatus: NetworkStatus) =>
+          handleStatusUpdate(module, newStatus)
+        );
+        newStatusUnsubs.set(module, statusUnsub);
+
+        newNetworksMap.set(module, network); // Store network in map to prevent duplicates
       }
-    ],
-    activeResolver: 'local',
-  });
+    }
 
-  // Here you can add the logic to update the lume state
+    // Unsubscribe from previous status updates
+    statusUnsubs.current.forEach((unsub) => unsub());
+    // Store new unsubscribe functions
+    statusUnsubs.current = newStatusUnsubs;
+
+    setLume((prevLume) => ({
+      ...prevLume,
+      networks: Array.from(newNetworksMap.values()),
+    })); // Convert Map values to array
+  };
+
+  const subDone = networkRegistry.subscribeToUpdates(update);
+
+  useEffect(() => {
+    update(); // Initial update on component mount
+
+    return () => {
+      subDone(); // Unsubscribe from network registry updates on component unmount
+      // Unsubscribe from all client.status updates
+      statusUnsubs.current.forEach((unsub) => unsub());
+    };
+  }, []);
 
   return (
-    <LumeContext.Provider value={{ lume }}>
-      {children}
-    </LumeContext.Provider>
+    <LumeContext.Provider value={{ lume }}>{children}</LumeContext.Provider>
   );
 };
 
@@ -66,9 +117,9 @@ export function useLume() {
   const ctx = useContext(LumeContext);
 
   if (!ctx) {
-    throw new Error('useLume must be used within a LumeProvider');
+    throw new Error("useLume must be used within a LumeProvider");
   }
 
   const { lume } = ctx;
-  return lume
+  return lume;
 }
