@@ -116,8 +116,8 @@ export default function Wrapped() {
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black/90 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content className="w-full h-full flex items-center justify-center">
+        <Dialog.Overlay className="fixed z-40 inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
+        <Dialog.Content className="fixed z-50 w-full h-full top-0 flex items-center justify-center">
           <SwitchableComponentProvider>
             <LumeIdentity />
           </SwitchableComponentProvider>
