@@ -33,7 +33,7 @@ const LumeLogoBg = ({ className }: { className?: string }) => {
           width="296"
           height="264"
           fill="url(#paint0_linear_902_66)"
-          fill-opacity="0.3"
+          fillOpacity="0.3"
         />
       </g>
       <defs>
@@ -56,9 +56,9 @@ const LumeLogoBg = ({ className }: { className?: string }) => {
           y2="163.457"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#1FC3F7" />
-          <stop offset="0.534226" stop-color="#33A653" />
-          <stop offset="0.799851" stop-color="#62C554" />
+          <stop stopColor="#1FC3F7" />
+          <stop offset="0.534226" stopColor="#33A653" />
+          <stop offset="0.799851" stopColor="#62C554" />
         </linearGradient>
         <image
           id="image0_902_66"
