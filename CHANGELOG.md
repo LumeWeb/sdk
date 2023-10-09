@@ -1,3 +1,10 @@
+# [0.1.0-develop.4](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.3...v0.1.0-develop.4) (2023-10-09)
+
+
+### Bug Fixes
+
+* update package.json entry ([18efdbe](https://git.lumeweb.com/LumeWeb/sdk/commit/18efdbe39dcb1126b798dd35217611cefcc605d0))
+
 # [0.1.0-develop.3](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.2...v0.1.0-develop.3) (2023-10-09)
 
 
