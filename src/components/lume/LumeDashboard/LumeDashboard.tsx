@@ -87,8 +87,8 @@ const CircularProgress = ({
   chain: Network;
   className?: string;
 }) => {
-  const progressOffset = ((100 - chain.progress) / 100) * 282.74; // These math are not mathing
-  const textOffset = (chain.progress / 100) * (30 - 44) + 44;
+  const progressOffset = ((100 - chain.sync) / 100) * 282.74; // These math are not mathing
+  const textOffset = (chain.sync / 100) * (30 - 44) + 44;
 
   return (
     <svg
@@ -132,7 +132,7 @@ const CircularProgress = ({
         fontWeight="normal"
         style={{ transform: "rotate(90deg) translate(0px, -98px)" }}
       >
-        {chain.progress}
+        {chain.sync}
       </text>
     </svg>
   );
