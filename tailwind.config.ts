@@ -1,15 +1,9 @@
-import {type Config} from "tailwindcss";
+import { type Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: [
-    './src/**/*.{ts,tsx}',
-  ],
-  safelist: [
-    'text-primary',
-    'text-red-500',
-    'text-orange-500',
-  ],
+  content: ["./src/**/*.{ts,tsx}"],
+  safelist: ["text-primary", "text-red-500", "text-orange-500"],
   theme: {
     container: {
       center: true,
@@ -76,4 +70,4 @@ export default {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;

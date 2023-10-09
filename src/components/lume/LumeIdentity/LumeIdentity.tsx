@@ -1,9 +1,9 @@
-import { Button } from "../../ui/button.tsx";
+import { Button } from "../../ui/button";
 import {
   SwitchableComponent,
   SwitchableComponentProvider,
   useSwitchableComponent,
-} from "../../SwitchableComponent.tsx";
+} from "../../SwitchableComponent";
 import * as ComponentList from "./components";
 import { LumeIdentityContext, Session } from "./LumeIdentityContext";
 import { LazyMotion, domAnimation } from "framer-motion";
@@ -14,23 +14,23 @@ import { useState } from "react";
 
 const LumeIdentity: FC = () => {
   const { visibleComponent, setVisibleComponent } = useSwitchableComponent(
-    ComponentList.SubmitButton
+    ComponentList.SubmitButton,
   );
 
   const isSubmitButtonInView = [ComponentList.SubmitButton.index].includes(
-    visibleComponent.index
+    visibleComponent.index,
   );
   const isLoginWithAccountKey = [ComponentList.SeedPhraseInput.index].includes(
-    visibleComponent.index
+    visibleComponent.index,
   );
   const isCreatingAccount = [ComponentList.SetupAccountKey.index].includes(
-    visibleComponent.index
+    visibleComponent.index,
   );
   const isShowingSeedPhrase = [
     ComponentList.SeedPhraseGeneration.index,
   ].includes(visibleComponent.index);
   const isFinalStep = [ComponentList.SeedPhraseGeneration.index].includes(
-    visibleComponent.index
+    visibleComponent.index,
   );
   const shouldShowBackButton = isCreatingAccount;
 
@@ -62,16 +62,14 @@ const LumeIdentity: FC = () => {
           {!isFinalStep ? (
             <>
               <div
-                className={`relative h-7 w-full overflow-hidden ${coloredOrLine}`}
-              >
+                className={`relative h-7 w-full overflow-hidden ${coloredOrLine}`}>
                 <svg
                   width="409"
                   height="28"
                   className="max-w-full -left-1/2"
                   viewBox="0 0 409 28"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                  xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -91,10 +89,9 @@ const LumeIdentity: FC = () => {
                   setVisibleComponent(
                     shouldShowBackButton
                       ? ComponentList.SubmitButton
-                      : ComponentList.SetupAccountKey
+                      : ComponentList.SetupAccountKey,
                   )
-                }
-              >
+                }>
                 <span className="text-center text-lg font-normal leading-normal">
                   {shouldShowBackButton ? "Go Back" : "Create an Account"}
                 </span>

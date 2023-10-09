@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-//import scopeTailwind from "./lib/vite-plugin-scope-tailwind/src/main"
+import scopeTailwind from "vite-plugin-scope-tailwind";
 import { resolve } from "path";
 import svgr from "vite-plugin-svgr";
 import dts from "vite-plugin-dts";
@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [
     svgr(),
     react(),
-    //  scopeTailwind({ react: true, classNameTransformers: ["cn"] }),
+    scopeTailwind({ react: true }),
     dts({
       tsconfigPath: "tsconfig.build.json",
     }),
@@ -38,24 +38,18 @@ export default defineConfig({
     // },
   },
   build: {
-    manifest: true,
-    outDir: "dist",
+    manifest: false,
+    outDir: "lib",
     emptyOutDir: true,
     sourcemap: true,
     minify: false,
     lib: {
-      entry: resolve(__dirname, "src/main.ts"),
-      name: "lume-sdk",
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "sdk",
       fileName: (format) => `lib.${format}.js`,
     },
     rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        // "framer-motion",
-        // "tailwind-merge",
-        // "class-variance-authority"
-      ],
+      external: ["react", "react-dom"],
     },
   },
 });
