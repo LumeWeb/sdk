@@ -4,8 +4,8 @@ import scopeTailwind from "vite-plugin-scope-tailwind";
 import { resolve } from "path";
 import svgr from "vite-plugin-svgr";
 import dts from "vite-plugin-dts";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
 import optimizer from "vite-plugin-optimizer";
+import noBundlePlugin from "vite-plugin-no-bundle";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,11 +20,7 @@ export default defineConfig({
       "node-fetch":
         "const e = undefined; export default e;export {e as Response, e as FormData, e as Blob};",
     }),
-    nodePolyfills({
-      exclude: ["fs"],
-      globals: { Buffer: true, global: true, process: true },
-    }),
-    // css({ output: 'styles/globals.css' })
+    noBundlePlugin(),
   ],
   resolve: {
     dedupe: ["@lumeweb/libportal", "@lumeweb/libweb", "@lumeweb/libkernel"],
@@ -45,9 +41,13 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "sdk",
-      fileName: (format) => `lib.${format}.js`,
+      fileName: "index",
+      formats: ["es"],
     },
     rollupOptions: {
+      output: {
+        inlineDynamicImports: false,
+      },
       external: ["react", "react-dom"],
     },
   },
