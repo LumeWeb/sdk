@@ -2,8 +2,9 @@
     "name": "@lumeweb/sdk",
     "version": "0.1.0-develop.2",
     "type": "module",
-    "main": "src/index.ts",
-    "types": "./src/main.ts",
+    "main": "lib/lib.umd.js",
+    "module": "lib/lib.es.js",
+    "types": "lib/index.d.ts",
     "repository": {
         "type": "git",
         "url": "gitea@git.lumeweb.com:LumeWeb/sdk.git"
