@@ -1,3 +1,4 @@
+import React, { ReactElement, type FC, JSXElementConstructor, ReactPortal } from "react";
 import { Button } from "../../ui/button";
 import {
   SwitchableComponent,
@@ -8,7 +9,6 @@ import * as ComponentList from "./components";
 import { LazyMotion, domAnimation } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
 import LumeLogoBg from "./LumeLogoBg";
-import type { FC } from "react";
 
 const LumeIdentity: FC = () => {
   const { visibleComponent, setVisibleComponent } = useSwitchableComponent(
@@ -106,14 +106,35 @@ const LumeIdentity: FC = () => {
 // contrast is not very good, as im testing on a train with a lot of sunlight
 // hitting my screen, it is almost impossible to see whats happening the outline
 // buttons have no contrast
-export default function Wrapped() {
+export const LumeIdentityTrigger = Dialog.Trigger;
+LumeIdentityTrigger.displayName = "LumeIdentityTrigger";
+export default function Wrapped({ children }: React.PropsWithChildren) {
+  const DefaultTrigger = () => (
+    <LumeIdentityTrigger asChild>
+      <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
+        Open Lume
+      </button>
+    </LumeIdentityTrigger>
+  );
+  const GivenTrigger = React.Children.toArray(children)
+    .filter((c) => {
+      if(typeof c === 'object'){
+        //@ts-expect-error -- I dont know what the type of this should be, i just know that this works
+        return c.type?.displayName === "LumeIdentityTrigger"
+      }
+
+      return false
+    })
+    .at(0);
+  const Trigger = GivenTrigger ? () => GivenTrigger : DefaultTrigger;
+
+  console.log({
+    Trigger, GivenTrigger
+  })
+
   return (
     <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
-          Open Lume
-        </button>
-      </Dialog.Trigger>
+      <Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className="fixed z-40 inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
         {/* @ditorodev: `left-[calc(50%-192px)] top-[calc(50vh-174px)]` these two are me being dumb and lazy, would be cool to fix with proper centering */}
