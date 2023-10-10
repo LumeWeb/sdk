@@ -4,6 +4,7 @@ import Logo from "../../../assets/lume-logo.png";
 import { cva } from "class-variance-authority";
 import { cn } from "../../utils";
 import { useState, useEffect } from "react";
+import React from "react";
 
 const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   done: "Synced",
@@ -11,8 +12,11 @@ const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   syncing: "Syncing",
 };
 
-const LumeDashboard = () => {
-  const { networks } = useLume();
+export const LumeDashboardTrigger = Dialog.Trigger;
+LumeDashboardTrigger.displayName = "LumeDashboardTrigger";
+
+const LumeDashboard = ({children}: React.PropsWithChildren) => {
+  const { lume: { networks } } = useLume();
 
   const [uniqueNetworkTypes, setUniqueNetworkTypes] = useState<string[]>([]);
 
@@ -22,9 +26,29 @@ const LumeDashboard = () => {
     setUniqueNetworkTypes(uniqueTypes);
   }, [networks]);
 
+  const DefaultTrigger = () => (
+    <LumeDashboardTrigger asChild>
+      <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
+        Open Dashboard
+      </button>
+    </LumeDashboardTrigger>
+  );
+  const GivenTrigger = React.Children.toArray(children)
+    .filter((c) => {
+      console.log({component: c})
+      if(typeof c === 'object'){
+        //@ts-expect-error -- I dont know what the type of this should be, i just know that this works
+        return c.type?.displayName === "LumeDashboardTrigger"
+      }
+
+      return false
+    })
+    .at(0);
+  const Trigger = GivenTrigger ? () => GivenTrigger : DefaultTrigger;
+
   return (
     <Dialog.Root>
-      <Dialog.Trigger>Open</Dialog.Trigger>
+      <Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className="fixed z-40 inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
         <Dialog.Content className="fixed p-5 z-50 right-0 bottom-0 top-0 w-[300px] bg-neutral-950 text-white border-black border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500">

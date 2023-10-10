@@ -1,4 +1,4 @@
-import React, { ReactElement, type FC, JSXElementConstructor, ReactPortal } from "react";
+import React, { type FC } from "react";
 import { Button } from "../../ui/button";
 import {
   SwitchableComponent,
@@ -127,10 +127,6 @@ export default function Wrapped({ children }: React.PropsWithChildren) {
     })
     .at(0);
   const Trigger = GivenTrigger ? () => GivenTrigger : DefaultTrigger;
-
-  console.log({
-    Trigger, GivenTrigger
-  })
 
   return (
     <Dialog.Root>

@@ -30,13 +30,15 @@ type LumeObject = {
   networks: Network[];
 };
 
-type LumeContext = {
+type LumeContextType = {
+  isLoggedIn: boolean,
+  setIsLoggedIn: (value: boolean) => void,
   lume: LumeObject;
 };
 
 const networkRegistry = createNetworkRegistryClient();
 
-const LumeContext = createContext<LumeContext | undefined>(undefined);
+const LumeContext = createContext<LumeContextType | undefined>(undefined);
 
 const LumeProvider = ({ children }: { children: ReactNode }) => {
   const [lume, setLume] = useState<LumeObject>({ networks: [] });
@@ -121,9 +123,10 @@ const LumeProvider = ({ children }: { children: ReactNode }) => {
       statusUnsubs.current.forEach((unsub) => unsub());
     };
   }, []);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <LumeContext.Provider value={{ lume }}>{children}</LumeContext.Provider>
+    <LumeContext.Provider value={{ lume, isLoggedIn, setIsLoggedIn }}>{children}</LumeContext.Provider>
   );
 };
 
@@ -136,6 +139,5 @@ export function useLume() {
     throw new Error("useLume must be used within a LumeProvider");
   }
 
-  const { lume } = ctx;
-  return lume;
+  return ctx;
 }
