@@ -1,3 +1,10 @@
+# [0.1.0-develop.9](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.8...v0.1.0-develop.9) (2023-10-10)
+
+
+### Bug Fixes
+
+* properly adding the scope ([7b1dc37](https://git.lumeweb.com/LumeWeb/sdk/commit/7b1dc37e72b4330b0f3e6ab27454ea3cdb54e9ba))
+
 # [0.1.0-develop.8](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.7...v0.1.0-develop.8) (2023-10-10)
 
 
