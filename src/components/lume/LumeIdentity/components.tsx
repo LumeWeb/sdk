@@ -158,10 +158,10 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
           <div
             key={`SeedPhrase_${index}`}
             className={`${TW_PREFIX} relative justify-center items-center gap-2 flex h-10 rounded border border-current ring-current text-neutral-700 w-[calc(33%-8px)]`}>
-            <span className="${TW_PREFIX} text-white text-md font-normal leading-normal w-full h-fit px-2 bg-transparent text-center">
+            <span className={`${TW_PREFIX} text-white text-md font-normal leading-normal w-full h-fit px-2 bg-transparent text-center`}>
               {phrase}
             </span>
-            <span className="${TW_PREFIX} left-[6px] top-0 absolute text-current text-xs font-normal leading-normal">
+            <span className={`${TW_PREFIX} left-[6px] top-0 absolute text-current text-xs font-normal leading-normal`}>
               {index + 1}
             </span>
           </div>
