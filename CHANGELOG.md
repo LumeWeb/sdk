@@ -1,3 +1,10 @@
+# [0.1.0-develop.8](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.7...v0.1.0-develop.8) (2023-10-10)
+
+
+### Bug Fixes
+
+* styles on lume identity ([7fc193c](https://git.lumeweb.com/LumeWeb/sdk/commit/7fc193ce7249898b5c83886f24e2ec114312bda1))
+
 # [0.1.0-develop.7](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.6...v0.1.0-develop.7) (2023-10-09)
 
 
