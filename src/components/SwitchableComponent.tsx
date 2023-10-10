@@ -1,23 +1,34 @@
 import { Variant, AnimatePresence, m } from "framer-motion";
 import React from "react";
 
-const SwitchableComponentContext = React.createContext<SwitchableComponentContextType | undefined>(undefined);
+const SwitchableComponentContext = React.createContext<
+  SwitchableComponentContextType | undefined
+>(undefined);
 
-export const SwitchableComponentProvider = ({ children }: React.PropsWithChildren) => {
-  const [visibleComponent, setVisibleComponent] = React.useState<SwitchableComponentType>();
+export const SwitchableComponentProvider = ({
+  children,
+}: React.PropsWithChildren) => {
+  const [visibleComponent, setVisibleComponent] =
+    React.useState<SwitchableComponentType>();
 
-  return <SwitchableComponentContext.Provider
-    value={{ visibleComponent: visibleComponent ?? DEFAULT_COMPONENT, setVisibleComponent }}
-  >
-    {children}
-  </SwitchableComponentContext.Provider>
-}
+  return (
+    <SwitchableComponentContext.Provider
+      value={{
+        visibleComponent: visibleComponent ?? DEFAULT_COMPONENT,
+        setVisibleComponent,
+      }}>
+      {children}
+    </SwitchableComponentContext.Provider>
+  );
+};
 
 export function useSwitchableComponent(initialValue?: SwitchableComponentType) {
   const contextValue = React.useContext(SwitchableComponentContext);
 
   if (contextValue === undefined) {
-    throw new Error('useSwitchableComponent hook is being used outside of its context. Please ensure that it is wrapped within a <SwitchableComponentProvider>.');
+    throw new Error(
+      "useSwitchableComponent hook is being used outside of its context. Please ensure that it is wrapped within a <SwitchableComponentProvider>.",
+    );
   }
   React.useEffect(() => {
     // Set the initial value if it's provided
@@ -30,22 +41,25 @@ export function useSwitchableComponent(initialValue?: SwitchableComponentType) {
 }
 
 const variants: Record<string, Variant> = {
-  hidden: { y: 50, opacity: 0, position: 'absolute' },
+  hidden: { y: 50, opacity: 0, position: "absolute" },
   show: {
     y: 0,
     x: 0,
     opacity: 1,
-    position: 'relative',
+    position: "relative",
     transition: {
       type: "tween",
-      ease: 'easeInOut'
+      ease: "easeInOut",
     },
   },
-  exit: { y: -50, opacity: 0, position: 'absolute' }
+  exit: { y: -50, opacity: 0, position: "absolute" },
 };
 
-export const SwitchableComponent = ({ children, index }: React.PropsWithChildren<{ index: string }>) => {
-  const [width, setWidth] = React.useState<number>()
+export const SwitchableComponent = ({
+  children,
+  index,
+}: React.PropsWithChildren<{ index: string }>) => {
+  const [width, setWidth] = React.useState<number>();
   return (
     <AnimatePresence>
       <m.div
@@ -55,9 +69,10 @@ export const SwitchableComponent = ({ children, index }: React.PropsWithChildren
         exit="exit"
         variants={variants}
         className="h-full w-full"
-        style={{ maxWidth: width ?? 'auto' }}
-        onTransitionEnd={(e) => setWidth(e.currentTarget.getBoundingClientRect().width!)}
-      >
+        style={{ maxWidth: width ?? "auto" }}
+        onTransitionEnd={(e) =>
+          setWidth(e.currentTarget.getBoundingClientRect().width!)
+        }>
         {children}
       </m.div>
     </AnimatePresence>
@@ -65,21 +80,33 @@ export const SwitchableComponent = ({ children, index }: React.PropsWithChildren
 };
 
 type SwitchableComponentType<T extends {} = {}> = {
-  index: string,
-  render: (props: T | any) => ReturnType<React.FC>
-}
+  index: string;
+  render: (props: T | any) => ReturnType<React.FC>;
+};
 
 type SwitchableComponentContextType<T = unknown> = {
-  visibleComponent: SwitchableComponentType<T extends {} ? T : any>,
-  setVisibleComponent: React.Dispatch<React.SetStateAction<SwitchableComponentType<T extends {} ? T : any> | undefined>>
-}
+  visibleComponent: SwitchableComponentType<T extends {} ? T : any>;
+  setVisibleComponent: React.Dispatch<
+    React.SetStateAction<
+      SwitchableComponentType<T extends {} ? T : any> | undefined
+    >
+  >;
+};
 
-const DEFAULT_COMPONENT = { render: () => undefined, index: Symbol('DEFAULT_COMPONENT').toString() }
+const DEFAULT_COMPONENT = {
+  render: () => undefined,
+  index: Symbol("DEFAULT_COMPONENT").toString(),
+};
 
 // Factory function
-export function makeSwitchable<T extends {}>(Component: React.FC<T>, index: string) {
+export function makeSwitchable<T extends {}>(
+  Component: React.FC<T>,
+  index: string,
+) {
   return {
-    render(props: T) { return <Component {...props} /> },
-    index: index || Symbol(Component.name).toString()
+    render(props: T) {
+      return <Component {...props} />;
+    },
+    index: index || Symbol(Component.name).toString(),
   };
-};
+}

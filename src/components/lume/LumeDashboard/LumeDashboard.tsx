@@ -71,8 +71,7 @@ const NetworkIndicator = ({ network }: { network: Network }) => {
           className={cn([
             "text-[12px] -mt-1",
             chainIndicatorVariant({ syncState: network.syncState }),
-          ])}
-        >
+          ])}>
           {SYNCSTATE_TO_TEXT[network.syncState]}
         </span>
       </div>
@@ -101,8 +100,7 @@ const CircularProgress = ({
       viewBox="0 0 100 100"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ transform: "rotate(-90deg)" }}
-    >
+      style={{ transform: "rotate(-90deg)" }}>
       <circle
         r="45"
         cx="50"
@@ -111,8 +109,7 @@ const CircularProgress = ({
         stroke="#e0e0e0"
         strokeWidth="4px"
         strokeDasharray="282.74px"
-        strokeDashoffset="0"
-      ></circle>
+        strokeDashoffset="0"></circle>
       <circle
         r="45"
         cx="50"
@@ -122,16 +119,14 @@ const CircularProgress = ({
         strokeLinecap="round"
         strokeDashoffset={`${progressOffset}px`}
         fill="transparent"
-        strokeDasharray="282.74px"
-      ></circle>
+        strokeDasharray="282.74px"></circle>
       <text
         x={textOffset}
         y="57.5px"
         fill="currentColor"
         fontSize="26px"
         fontWeight="normal"
-        style={{ transform: "rotate(90deg) translate(0px, -98px)" }}
-      >
+        style={{ transform: "rotate(90deg) translate(0px, -98px)" }}>
         {chain.sync}
       </text>
     </svg>

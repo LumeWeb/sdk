@@ -15,6 +15,7 @@ import { useMemo, useState } from "react";
 
 import * as bip39 from "@scure/bip39";
 import { wordlist } from "@scure/bip39/wordlists/english";
+import { TW_PREFIX } from "../../../../scoped-tailwind-prefix";
 
 async function seedToKey(seed: string) {
   return bip39.mnemonicToSeed(seed);
@@ -96,9 +97,11 @@ const SetupAccountKeyComponent = () => {
       transition={{ type: "just", delay: 0.1 }}
       className="min-h-12 h-full max-w-full"
       style={{ maxWidth: width ?? "auto" }}
-      ref={(t) =>
-        setTimeout(() => setWidth(t!.getBoundingClientRect().width!), 0)
-      }>
+      ref={(t) => {
+        if (t) {
+          setTimeout(() => setWidth(t.getBoundingClientRect().width!), 0);
+        }
+      }}>
       <Button
         className="w-full h-full"
         onClick={() => setVisibleComponent(SeedPhraseGeneration)}>
@@ -150,15 +153,15 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
             transition={{ type: "tween", duration: 0.1 }}></m.div>
         ) : null}
       </AnimatePresence>
-      <div className="z-20 relative mb-2.5 w-full h-full flex-wrap justify-center items-center gap-2.5 inline-flex">
+      <div className="z-20 relative mb-2 w-full h-full flex-wrap justify-center items-center gap-2 inline-flex">
         {phrases.map((phrase, index) => (
           <div
             key={`SeedPhrase_${index}`}
-            className={`justify-center items-center gap-2.5 flex w-[calc(33%-10px)] h-10 rounded border border-current relative ring-current text-neutral-700`}>
-            <span className=" text-white text-md font-normal leading-normal w-full h-fit px-2.5 bg-transparent text-center">
+            className={`${TW_PREFIX} relative justify-center items-center gap-2 flex h-10 rounded border border-current ring-current text-neutral-700 w-[calc(33%-8px)]`}>
+            <span className="${TW_PREFIX} text-white text-md font-normal leading-normal w-full h-fit px-2 bg-transparent text-center">
               {phrase}
             </span>
-            <span className="left-[6px] top-0 absolute text-current text-xs font-normal leading-normal">
+            <span className="${TW_PREFIX} left-[6px] top-0 absolute text-current text-xs font-normal leading-normal">
               {index + 1}
             </span>
           </div>
@@ -177,7 +180,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
           ) : null}
         </AnimatePresence>
         <Button
-          className={`w-full h-12 ${
+          className={`${TW_PREFIX} w-[calc(100%-8px)] h-12 ${
             buttonClickedState === "clicked"
               ? "!text-primary !border-primary"
               : ""
@@ -194,7 +197,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
       </div>
       {step === 0 ? (
         <Button
-          className="z-20 w-full h-12 text-white bg-neutral-700 hover:bg-neutral-800"
+          className="z-20 ml-1 w-[calc(100%-8px)] h-12 text-white border border-neutral-700 bg-neutral-700 hover:bg-neutral-800"
           variant="secondary"
           onClick={() => setStep(1)}>
           Continue
