@@ -1,3 +1,4 @@
+import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import LumeDashboard from "../src/components/lume/LumeDashboard/LumeDashboard.js";
 import LumeProvider from "../src/components/lume/LumeProvider.js";
