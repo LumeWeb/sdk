@@ -48,12 +48,12 @@ const LumeProvider = ({ children }: { children: ReactNode }) => {
     (id: string, newNetwork: NetworkStatus & { syncState: SyncState }) => {
       setLume((prevLume) => {
         const updatedNetworks = prevLume.networks.map((network) =>
-          network.id === id ? { ...network, ...newNetwork } : network
+          network.id === id ? { ...network, ...newNetwork } : network,
         );
         return { ...prevLume, networks: updatedNetworks };
       });
     },
-    []
+    [],
   );
 
   const update = async () => {

@@ -7,8 +7,7 @@ const LumeLogoBg = ({ className }: { className?: string }) => {
       viewBox="0 0 524 500"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-    >
+      xmlnsXlink="http://www.w3.org/1999/xlink">
       <mask
         id="mask0_902_66"
         style={{ maskType: "alpha" }}
@@ -16,8 +15,7 @@ const LumeLogoBg = ({ className }: { className?: string }) => {
         x="-2"
         y="-1"
         width="404"
-        height="349"
-      >
+        height="349">
         <rect
           x="-1.04292"
           y="346.31"
@@ -41,8 +39,7 @@ const LumeLogoBg = ({ className }: { className?: string }) => {
           id="pattern0"
           patternContentUnits="objectBoundingBox"
           width="1"
-          height="1"
-        >
+          height="1">
           <use
             xlinkHref="#image0_902_66"
             transform="matrix(0.000399371 0 0 0.000331658 0.0222222 0.0369089)"
@@ -54,8 +51,7 @@ const LumeLogoBg = ({ className }: { className?: string }) => {
           y1="186.741"
           x2="-59.0615"
           y2="163.457"
-          gradientUnits="userSpaceOnUse"
-        >
+          gradientUnits="userSpaceOnUse">
           <stop stopColor="#1FC3F7" />
           <stop offset="0.534226" stopColor="#33A653" />
           <stop offset="0.799851" stopColor="#62C554" />

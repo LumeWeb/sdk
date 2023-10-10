@@ -6,13 +6,14 @@ import svgr from "vite-plugin-svgr";
 import dts from "vite-plugin-dts";
 import optimizer from "vite-plugin-optimizer";
 import noBundlePlugin from "vite-plugin-no-bundle";
+import { TW_PREFIX } from "./scoped-tailwind-prefix";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     svgr(),
     react(),
-    scopeTailwind({ react: true }),
+    scopeTailwind({ react: true, prefix: TW_PREFIX, classNameTransformers: ['cn'] }),
     dts({
       tsconfigPath: "tsconfig.build.json",
     }),
