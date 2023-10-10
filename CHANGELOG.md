@@ -1,3 +1,15 @@
+# [0.1.0-develop.10](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.9...v0.1.0-develop.10) (2023-10-10)
+
+
+### Bug Fixes
+
+* improve components ([f9664fc](https://git.lumeweb.com/LumeWeb/sdk/commit/f9664fc8498ec94e4a355f2e920bd7f706f59145))
+
+
+### Features
+
+* allow to customize the lume identity trigger ([099b2f2](https://git.lumeweb.com/LumeWeb/sdk/commit/099b2f2c649d47df83c060f3cd587ea2c8034060))
+
 # [0.1.0-develop.9](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.8...v0.1.0-develop.9) (2023-10-10)
 
 
