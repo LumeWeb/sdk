@@ -1,3 +1,10 @@
+# [0.1.0-develop.14](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.13...v0.1.0-develop.14) (2023-10-11)
+
+
+### Bug Fixes
+
+* use init, not kernelLoaded ([4f5118f](https://git.lumeweb.com/LumeWeb/sdk/commit/4f5118fe34d0499b2835bece6cde5b5e7fdb8b87))
+
 # [0.1.0-develop.13](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.12...v0.1.0-develop.13) (2023-10-11)
 
 
