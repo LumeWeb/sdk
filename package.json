@@ -3,7 +3,7 @@
     "version": "0.1.0-develop.11",
     "type": "module",
     "main": "lib/index.js",
-    "types": "lib/index.d.ts",
+    "types": "lib/src/index.d.ts",
     "repository": {
         "type": "git",
         "url": "gitea@git.lumeweb.com:LumeWeb/sdk.git"
