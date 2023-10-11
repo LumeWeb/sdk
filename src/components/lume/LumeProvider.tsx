@@ -8,7 +8,7 @@ import {
 } from "react";
 import { createClient as createNetworkRegistryClient } from "@lumeweb/kernel-network-registry-client";
 import { createNetworkClient } from "@lumeweb/libkernel/module";
-import { kernelLoaded, loginComplete } from "@lumeweb/libkernel/kernel";
+import { init, loginComplete } from "@lumeweb/libkernel/kernel";
 
 type SyncState = "done" | "syncing" | "error";
 
@@ -109,7 +109,7 @@ const LumeProvider = ({ children }) => {
     fetchAndUpdateNetworks();
 
     loginComplete().then(() => setIsLoggedIn(true));
-    kernelLoaded().then(() => setReady(true));
+    init().then(() => setReady(true));
 
     const subDone = networkRegistry.subscribeToUpdates(fetchAndUpdateNetworks);
 
