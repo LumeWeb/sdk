@@ -6,9 +6,9 @@ import {
   useRef,
   useState,
 } from "react";
-import type { ReactNode } from "react";
 import { createClient as createNetworkRegistryClient } from "@lumeweb/kernel-network-registry-client";
 import { createNetworkClient } from "@lumeweb/libkernel/module";
+import { kernelLoaded, loginComplete } from "@lumeweb/libkernel/kernel";
 
 type SyncState = "done" | "syncing" | "error";
 
@@ -31,102 +31,98 @@ type LumeObject = {
 };
 
 type LumeContextType = {
-  isLoggedIn: boolean,
-  setIsLoggedIn: (value: boolean) => void,
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: boolean) => void;
   lume: LumeObject;
+  ready: boolean;
 };
 
 const networkRegistry = createNetworkRegistryClient();
 
 const LumeContext = createContext<LumeContextType | undefined>(undefined);
 
-const LumeProvider = ({ children }: { children: ReactNode }) => {
+const LumeProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [ready, setReady] = useState(false);
   const [lume, setLume] = useState<LumeObject>({ networks: [] });
-
-  // Map to store unsubscribe functions for client.status subscriptions
   const statusUnsubs = useRef(new Map());
 
-  const handleStatusUpdate = useCallback(
-    (id: string, newNetwork: NetworkStatus & { syncState: SyncState }) => {
-      setLume((prevLume) => {
-        const updatedNetworks = prevLume.networks.map((network) =>
-          network.id === id ? { ...network, ...newNetwork } : network,
-        );
-        return { ...prevLume, networks: updatedNetworks };
-      });
-    },
-    [],
-  );
+  const handleStatusUpdate = useCallback((id, newNetwork) => {
+    setLume((prevLume) => {
+      const updatedNetworks = prevLume.networks.map((network) =>
+        network.id === id ? { ...network, ...newNetwork } : network,
+      );
+      return { ...prevLume, networks: updatedNetworks };
+    });
+  }, []);
 
-  const update = async () => {
-    const types = await networkRegistry.getTypes();
-    const newNetworksMap = new Map(); // Use a Map to prevent duplicates based on chainId
-    const newStatusUnsubs = new Map();
+  const fetchAndUpdateNetworks = async () => {
+    try {
+      const types = await networkRegistry.getTypes();
+      const newNetworksMap = new Map();
+      const newStatusUnsubs = new Map();
 
-    for (const type of types) {
-      const list = await networkRegistry.getNetworksByType(type);
+      for (const type of types) {
+        const list = await networkRegistry.getNetworksByType(type);
 
-      for (const module of list) {
-        const client = createNetworkClient(module);
-        const name = await client.name();
+        for (const module of list) {
+          const client = createNetworkClient(module);
+          const name = await client.name();
 
-        const network: Network = {
-          peers: 0,
-          ready: false,
-          sync: 0,
-          type,
-          name,
-          id: module,
-          syncState: "syncing",
-        };
+          const initialNetworkStatus = {
+            peers: 0,
+            ready: false,
+            sync: 0,
+            type,
+            name,
+            id: module,
+            syncState: "syncing",
+          };
 
-        // Subscribe to status updates
-        const statusUnsub = client.status((newStatus: NetworkStatus) => {
-          let syncState: SyncState = "syncing";
-
-          if (newStatus.ready) {
-            syncState = "done";
-          } else if (newStatus.error) {
-            syncState = "error";
-          }
-
-          handleStatusUpdate(module, {
-            ...newStatus,
-            syncState,
+          const statusUnsub = client.status((newStatus) => {
+            const syncState = newStatus.ready
+              ? "done"
+              : newStatus.error
+              ? "error"
+              : "syncing";
+            handleStatusUpdate(module, { ...newStatus, syncState });
           });
-        });
-        newStatusUnsubs.set(module, statusUnsub);
 
-        newNetworksMap.set(module, network); // Store network in map to prevent duplicates
+          newStatusUnsubs.set(module, statusUnsub);
+          newNetworksMap.set(module, initialNetworkStatus);
+        }
       }
+
+      statusUnsubs.current.forEach((unsub) => unsub());
+      statusUnsubs.current = newStatusUnsubs;
+
+      setLume((prevLume) => ({
+        ...prevLume,
+        networks: Array.from(newNetworksMap.values()),
+      }));
+    } catch (error) {
+      console.error("Error fetching and updating networks:", error);
     }
-
-    // Unsubscribe from previous status updates
-    statusUnsubs.current.forEach((unsub) => unsub());
-    // Store new unsubscribe functions
-    statusUnsubs.current = newStatusUnsubs;
-
-    setLume((prevLume) => ({
-      ...prevLume,
-      networks: Array.from(newNetworksMap.values()),
-    })); // Convert Map values to array
   };
 
-  const subDone = networkRegistry.subscribeToUpdates(update);
-
   useEffect(() => {
-    update(); // Initial update on component mount
+    fetchAndUpdateNetworks();
+
+    loginComplete().then(() => setIsLoggedIn(true));
+    kernelLoaded().then(() => setReady(true));
+
+    const subDone = networkRegistry.subscribeToUpdates(fetchAndUpdateNetworks);
 
     return () => {
-      subDone(); // Unsubscribe from network registry updates on component unmount
-      // Unsubscribe from all client.status updates
+      subDone();
       statusUnsubs.current.forEach((unsub) => unsub());
     };
-  }, []);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  }, [fetchAndUpdateNetworks]);
 
   return (
-    <LumeContext.Provider value={{ lume, isLoggedIn, setIsLoggedIn }}>{children}</LumeContext.Provider>
+    <LumeContext.Provider value={{ lume, ready, isLoggedIn, setIsLoggedIn }}>
+      {children}
+    </LumeContext.Provider>
   );
 };
 
