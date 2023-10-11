@@ -1,3 +1,10 @@
+# [0.1.0-develop.11](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.10...v0.1.0-develop.11) (2023-10-10)
+
+
+### Bug Fixes
+
+* better components ([0db2a24](https://git.lumeweb.com/LumeWeb/sdk/commit/0db2a24f92b772c442c7e0285b7d4a02e01783b2))
+
 # [0.1.0-develop.10](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.9...v0.1.0-develop.10) (2023-10-10)
 
 
