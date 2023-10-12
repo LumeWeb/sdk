@@ -43,9 +43,10 @@ const LumeContext = createContext<LumeContextType | undefined>(undefined);
 
 const LumeProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState<boolean>(false);
   const [lume, setLume] = useState<LumeObject>({ networks: [] });
   const statusUnsubs = useRef(new Map());
+  const isMounted = useRef(true); // Use a ref to track mounting
 
   const handleStatusUpdate = useCallback((id, newNetwork) => {
     setLume((prevLume) => {
@@ -64,7 +65,6 @@ const LumeProvider = ({ children }) => {
 
       for (const type of types) {
         const list = await networkRegistry.getNetworksByType(type);
-
         for (const module of list) {
           const client = createNetworkClient(module);
           const name = await client.name();
@@ -96,25 +96,29 @@ const LumeProvider = ({ children }) => {
       statusUnsubs.current.forEach((unsub) => unsub());
       statusUnsubs.current = newStatusUnsubs;
 
-      setLume((prevLume) => ({
-        ...prevLume,
-        networks: Array.from(newNetworksMap.values()),
-      }));
+      if (isMounted.current) {
+        setLume((prevLume) => ({
+          ...prevLume,
+          networks: Array.from(newNetworksMap.values()),
+        }));
+      }
     } catch (error) {
-      console.error("Error fetching and updating networks:", error);
+      if (isMounted.current) {
+        console.error("Error fetching and updating networks:", error);
+      }
     }
   };
 
   useEffect(() => {
     fetchAndUpdateNetworks();
-
-    loginComplete().then(() => setIsLoggedIn(true));
-    init().then(() => setReady(true));
+    loginComplete().then(() => isMounted.current && setIsLoggedIn(true));
+    init().then(() => isMounted.current && setReady(true));
 
     const subDone = networkRegistry.subscribeToUpdates(fetchAndUpdateNetworks);
 
     return () => {
-      subDone();
+      isMounted.current = false; // Track component unmounting
+      subDone?.();
       statusUnsubs.current.forEach((unsub) => unsub());
     };
   }, [fetchAndUpdateNetworks]);
