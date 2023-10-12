@@ -6,22 +6,26 @@ import {
 import { useLume } from "../LumeProvider";
 import React, { useContext } from "react";
 
-export const LumeIdentityContext = React.createContext<{open: boolean, setOpen: (open: boolean) => void} | undefined>(undefined);
+export const LumeIdentityContext = React.createContext<
+  { open: boolean; setOpen: (open: boolean) => void } | undefined
+>(undefined);
 
 export function useLumeIndentity() {
-  const {isLoggedIn, setIsLoggedIn} = useLume();
-  const ctx = useContext(LumeIdentityContext); 
+  const { isLoggedIn, setIsLoggedIn } = useLume();
+  const ctx = useContext(LumeIdentityContext);
 
-  if(!ctx) {
-    throw new Error("useLumeIdentity should be used inside LumeIdentityContext.Provider")
+  if (!ctx) {
+    throw new Error(
+      "useLumeIdentity should be used inside LumeIdentityContext.Provider",
+    );
   }
 
-  const {setOpen} = ctx;
+  const { setOpen } = ctx;
 
   return {
     isSignedIn: isLoggedIn,
     async signIn(key: Uint8Array) {
-      await login(key);
+      await login(key.slice(0, 32));
       // await loginComplete(); # this function is buggy `auth.ts:42 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'promise') `
       setIsLoggedIn(true);
       setOpen(false);
