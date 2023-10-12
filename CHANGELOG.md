@@ -1,3 +1,10 @@
+# [0.1.0-develop.33](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.32...v0.1.0-develop.33) (2023-10-12)
+
+
+### Bug Fixes
+
+* we need pascalCase ([7c35c45](https://git.lumeweb.com/LumeWeb/sdk/commit/7c35c45904559a28db6af4b76713ee7d7669bd95))
+
 # [0.1.0-develop.32](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.31...v0.1.0-develop.32) (2023-10-12)
 
 
