@@ -69,7 +69,7 @@ const LumeDashboard = (props: any) => {
           </div>
           {uniqueNetworkTypes.map((type, index) => (
             <div className="mt-4 mb-8" key={`NetworkTypeSection_${index}`}>
-              <h2 className="text-xl mb-4">{type}</h2>
+              <h2 className="text-xl mb-4">{camelCase(type)}</h2>
               <div className="grid grid-cols-2">
                 {networks
                   .filter((network) => network.type === type)
@@ -103,7 +103,7 @@ const NetworkIndicator = ({ network }: { network: Network }) => {
     <div key={network.id} className="flex flex-row gap-x-2 items-center ">
       <CircularProgress chain={network} />
       <div className="flex flex-col">
-        <span>{camelCase(network.name)}</span>
+        <span>{network.name}</span>
         <span
           className={cn([
             "text-[12px] -mt-1",
