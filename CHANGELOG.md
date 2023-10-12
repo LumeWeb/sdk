@@ -1,3 +1,10 @@
+# [0.1.0-develop.21](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.20...v0.1.0-develop.21) (2023-10-12)
+
+
+### Bug Fixes
+
+* missing fetchAndUpdateNetworks call ([bf02385](https://git.lumeweb.com/LumeWeb/sdk/commit/bf023856b9e3f9dc6352a688f277ab4557f84dd4))
+
 # [0.1.0-develop.20](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.19...v0.1.0-develop.20) (2023-10-12)
 
 
