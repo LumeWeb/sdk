@@ -57,7 +57,7 @@ const LumeProvider = ({ children }) => {
     });
   }, []);
 
-  const fetchAndUpdateNetworks = async () => {
+  const fetchAndUpdateNetworks = useCallback(async () => {
     const unsub = () => {
       statusUnsubs.current.forEach((unsub) => unsub());
       statusUnsubs.current = new Map<any, any>();
@@ -118,7 +118,7 @@ const LumeProvider = ({ children }) => {
         console.error("Error fetching and updating networks:", error);
       }
     }
-  };
+  }, [handleStatusUpdate]);
 
   useEffect(() => {
     fetchAndUpdateNetworks();
