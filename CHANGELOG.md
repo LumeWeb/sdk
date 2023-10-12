@@ -1,3 +1,10 @@
+# [0.1.0-develop.20](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.19...v0.1.0-develop.20) (2023-10-12)
+
+
+### Bug Fixes
+
+* debug ([ba38e6b](https://git.lumeweb.com/LumeWeb/sdk/commit/ba38e6be707e8d476aba4ad629679583c5917fcc))
+
 # [0.1.0-develop.19](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.18...v0.1.0-develop.19) (2023-10-12)
 
 
