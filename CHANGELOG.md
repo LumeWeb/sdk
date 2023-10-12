@@ -1,3 +1,10 @@
+# [0.1.0-develop.32](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.31...v0.1.0-develop.32) (2023-10-12)
+
+
+### Bug Fixes
+
+* camelCase the type, not the name ([461147b](https://git.lumeweb.com/LumeWeb/sdk/commit/461147b7ac0d33e6c60a10566ec2b7ad87406e02))
+
 # [0.1.0-develop.31](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.30...v0.1.0-develop.31) (2023-10-12)
 
 # [0.1.0-develop.30](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.29...v0.1.0-develop.30) (2023-10-12)
