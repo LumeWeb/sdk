@@ -69,7 +69,9 @@ const LumeDashboard = (props: any) => {
           </div>
           {uniqueNetworkTypes.map((type, index) => (
             <div className="mt-4 mb-8" key={`NetworkTypeSection_${index}`}>
-              <h2 className="text-xl mb-4">{camelCase(type)}</h2>
+              <h2 className="text-xl mb-4">
+                {camelCase(type, { pascalCase: true })}
+              </h2>
               <div className="grid grid-cols-2">
                 {networks
                   .filter((network) => network.type === type)
