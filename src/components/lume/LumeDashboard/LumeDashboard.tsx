@@ -5,6 +5,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "../../utils";
 import { useState, useEffect } from "react";
 import React from "react";
+import camelCase from "camelcase";
 
 const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   done: "Synced",
@@ -96,12 +97,13 @@ const chainIndicatorVariant = cva("chainIndicatorVariant", {
     },
   },
 });
+
 const NetworkIndicator = ({ network }: { network: Network }) => {
   return (
     <div key={network.id} className="flex flex-row gap-x-2 items-center ">
       <CircularProgress chain={network} />
       <div className="flex flex-col">
-        <span>{network.name}</span>
+        <span>{camelCase(network.name)}</span>
         <span
           className={cn([
             "text-[12px] -mt-1",
