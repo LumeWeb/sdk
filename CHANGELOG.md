@@ -1,3 +1,10 @@
+# [0.1.0-develop.28](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.27...v0.1.0-develop.28) (2023-10-12)
+
+
+### Bug Fixes
+
+* handling of children ([d886b6f](https://git.lumeweb.com/LumeWeb/sdk/commit/d886b6f2d075af654ea173c607521e81af8d7bd6))
+
 # [0.1.0-develop.27](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.26...v0.1.0-develop.27) (2023-10-12)
 
 # [0.1.0-develop.26](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.25...v0.1.0-develop.26) (2023-10-12)
