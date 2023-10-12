@@ -1,3 +1,11 @@
+# [0.1.0-develop.29](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.28...v0.1.0-develop.29) (2023-10-12)
+
+
+### Bug Fixes
+
+* debug ([d77c4c2](https://git.lumeweb.com/LumeWeb/sdk/commit/d77c4c2a605a3ff695c35bd1f22759f830908ddc))
+* pass props to trigger and add disabled button styling ([cccdfde](https://git.lumeweb.com/LumeWeb/sdk/commit/cccdfdedbbb659106d294cb11c0638920db94783))
+
 # [0.1.0-develop.28](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.27...v0.1.0-develop.28) (2023-10-12)
 
 
