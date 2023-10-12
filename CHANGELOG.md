@@ -1,3 +1,10 @@
+# [0.1.0-develop.30](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.29...v0.1.0-develop.30) (2023-10-12)
+
+
+### Bug Fixes
+
+* remove debug ([897405b](https://git.lumeweb.com/LumeWeb/sdk/commit/897405b092d7e0789226d6907ef3092c3ffb66e0))
+
 # [0.1.0-develop.29](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.28...v0.1.0-develop.29) (2023-10-12)
 
 
