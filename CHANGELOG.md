@@ -1,3 +1,10 @@
+# [0.1.0-develop.15](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.14...v0.1.0-develop.15) (2023-10-12)
+
+
+### Bug Fixes
+
+* add all lumeweb libraries to external ([e1e82ad](https://git.lumeweb.com/LumeWeb/sdk/commit/e1e82adef8af6320e303be5877610fdde13de801))
+
 # [0.1.0-develop.14](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.13...v0.1.0-develop.14) (2023-10-11)
 
 
