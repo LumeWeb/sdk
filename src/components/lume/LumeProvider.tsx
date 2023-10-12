@@ -35,6 +35,7 @@ type LumeContextType = {
   setIsLoggedIn: (value: boolean) => void;
   lume: LumeObject;
   ready: boolean;
+  setReady: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const networkRegistry = createNetworkRegistryClient();
@@ -122,8 +123,6 @@ const LumeProvider = ({ children }) => {
 
   useEffect(() => {
     fetchAndUpdateNetworks();
-    loginComplete().then(() => isMounted.current && setIsLoggedIn(true));
-    init().then(() => isMounted.current && setReady(true));
 
     const subDone = networkRegistry.subscribeToUpdates(() =>
       fetchAndUpdateNetworks(),
@@ -137,7 +136,8 @@ const LumeProvider = ({ children }) => {
   }, [fetchAndUpdateNetworks]);
 
   return (
-    <LumeContext.Provider value={{ lume, ready, isLoggedIn, setIsLoggedIn }}>
+    <LumeContext.Provider
+      value={{ lume, ready, setReady, isLoggedIn, setIsLoggedIn }}>
       {children}
     </LumeContext.Provider>
   );
