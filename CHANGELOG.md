@@ -1,3 +1,10 @@
+# [0.1.0-develop.18](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.17...v0.1.0-develop.18) (2023-10-12)
+
+
+### Bug Fixes
+
+* only use the private key, not extended ([dfe8739](https://git.lumeweb.com/LumeWeb/sdk/commit/dfe87396b9770a8c37d22bd7d30c0904bd16082c))
+
 # [0.1.0-develop.17](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.16...v0.1.0-develop.17) (2023-10-12)
 
 
