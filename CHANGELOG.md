@@ -1,3 +1,10 @@
+# [0.1.0-develop.16](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.15...v0.1.0-develop.16) (2023-10-12)
+
+
+### Bug Fixes
+
+* try to avoid unneeded re-rendering if we unmount while in the process of mounting ([92c18ca](https://git.lumeweb.com/LumeWeb/sdk/commit/92c18ca940b3d8651064d58600fdcf83298b305d))
+
 # [0.1.0-develop.15](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.14...v0.1.0-develop.15) (2023-10-12)
 
 
