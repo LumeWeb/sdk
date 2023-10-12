@@ -1,3 +1,10 @@
+# [0.1.0-develop.19](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.18...v0.1.0-develop.19) (2023-10-12)
+
+
+### Bug Fixes
+
+* change fetchAndUpdateNetworks to be a cached callback ([f68070e](https://git.lumeweb.com/LumeWeb/sdk/commit/f68070e38c3549a952eb42fc8487fbeee34e8164))
+
 # [0.1.0-develop.18](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.17...v0.1.0-develop.18) (2023-10-12)
 
 
