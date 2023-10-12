@@ -29,24 +29,20 @@ const LumeDashboard = (props: any) => {
     setUniqueNetworkTypes(uniqueTypes);
   }, [networks]);
 
-  const DefaultTrigger = (props: any) => {
-    console.log(props);
-    return (
-      <LumeDashboardTrigger asChild {...props}>
-        <button
-          className={cn(
-            "bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md",
-            {
-              "disabled:pointer-events-none disabled:opacity-50":
-                props.disabled,
-            },
-          )}
-          {...props}>
-          Open Dashboard
-        </button>
-      </LumeDashboardTrigger>
-    );
-  };
+  const DefaultTrigger = (props: any) => (
+    <LumeDashboardTrigger asChild {...props}>
+      <button
+        className={cn(
+          "bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md",
+          {
+            "disabled:pointer-events-none disabled:opacity-50": props.disabled,
+          },
+        )}
+        {...props}>
+        Open Dashboard
+      </button>
+    </LumeDashboardTrigger>
+  );
   const GivenTrigger = React.Children.toArray(
     children?.children || (children as any) || [],
   )
