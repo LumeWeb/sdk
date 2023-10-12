@@ -58,12 +58,21 @@ const LumeProvider = ({ children }) => {
   }, []);
 
   const fetchAndUpdateNetworks = async () => {
+    const unsub = () => {
+      statusUnsubs.current.forEach((unsub) => unsub());
+      statusUnsubs.current = new Map<any, any>();
+    };
+
     try {
       const types = await networkRegistry.getTypes();
       const newNetworksMap = new Map();
       const newStatusUnsubs = new Map();
 
       for (const type of types) {
+        if (!isMounted.current) {
+          unsub();
+          return;
+        }
         const list = await networkRegistry.getNetworksByType(type);
         for (const module of list) {
           const client = createNetworkClient(module);
@@ -101,6 +110,8 @@ const LumeProvider = ({ children }) => {
           ...prevLume,
           networks: Array.from(newNetworksMap.values()),
         }));
+      } else {
+        unsub();
       }
     } catch (error) {
       if (isMounted.current) {
