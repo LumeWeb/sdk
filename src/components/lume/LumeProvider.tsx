@@ -125,7 +125,9 @@ const LumeProvider = ({ children }) => {
     loginComplete().then(() => isMounted.current && setIsLoggedIn(true));
     init().then(() => isMounted.current && setReady(true));
 
-    const subDone = networkRegistry.subscribeToUpdates(fetchAndUpdateNetworks);
+    const subDone = networkRegistry.subscribeToUpdates(() => {
+      console.log("subscribeToUpdates triggered");
+    });
 
     return () => {
       isMounted.current = false; // Track component unmounting
