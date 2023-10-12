@@ -1,3 +1,10 @@
+# [0.1.0-develop.17](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.16...v0.1.0-develop.17) (2023-10-12)
+
+
+### Bug Fixes
+
+* abort and unsub if we unmount inside the loop, and check after the loop as well ([03434b4](https://git.lumeweb.com/LumeWeb/sdk/commit/03434b43292463602526ec590327e384a10e5f75))
+
 # [0.1.0-develop.16](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.15...v0.1.0-develop.16) (2023-10-12)
 
 
