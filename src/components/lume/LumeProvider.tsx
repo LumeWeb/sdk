@@ -34,6 +34,8 @@ export type LumeContextType = {
   isLoggedIn: boolean;
   setIsLoggedIn: (value: boolean) => void;
   lume: LumeObject;
+  inited: boolean;
+  setInited: React.Dispatch<React.SetStateAction<boolean>>;
   ready: boolean;
   setReady: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -45,6 +47,7 @@ const LumeContext = createContext<LumeContextType | undefined>(undefined);
 const LumeProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ready, setReady] = useState<boolean>(false);
+  const [inited, setInited] = useState<boolean>(false);
   const [lume, setLume] = useState<LumeObject>({ networks: [] });
   const statusUnsubs = useRef(new Map());
   const isMounted = useRef(true); // Use a ref to track mounting
@@ -137,7 +140,15 @@ const LumeProvider = ({ children }) => {
 
   return (
     <LumeContext.Provider
-      value={{ lume, ready, setReady, isLoggedIn, setIsLoggedIn }}>
+      value={{
+        lume,
+        ready,
+        setReady,
+        isLoggedIn,
+        setIsLoggedIn,
+        inited,
+        setInited,
+      }}>
       {children}
     </LumeContext.Provider>
   );
