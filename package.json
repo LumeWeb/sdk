@@ -1,6 +1,6 @@
 {
     "name": "@lumeweb/sdk",
-    "version": "0.1.0-develop.15",
+    "version": "0.1.0-develop.16",
     "type": "module",
     "main": "lib/index.js",
     "types": "lib/src/index.d.ts",
