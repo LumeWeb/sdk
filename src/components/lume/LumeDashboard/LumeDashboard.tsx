@@ -15,7 +15,8 @@ const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
 export const LumeDashboardTrigger = Dialog.Trigger;
 LumeDashboardTrigger.displayName = "LumeDashboardTrigger";
 
-const LumeDashboard = ({ children }: React.PropsWithChildren) => {
+const LumeDashboard = (props: any) => {
+  const { children }: { children: React.PropsWithChildren } = props;
   const {
     lume: { networks },
   } = useLume();
@@ -37,9 +38,8 @@ const LumeDashboard = ({ children }: React.PropsWithChildren) => {
       </button>
     </LumeDashboardTrigger>
   );
-  const GivenTrigger = React.Children.toArray(children)
+  const GivenTrigger = React.Children.toArray(children.children)
     .filter((c) => {
-      console.log({ component: c });
       if (typeof c === "object") {
         //@ts-expect-error -- I dont know what the type of this should be, i just know that this works
         return c.type?.displayName === "LumeDashboardTrigger";
@@ -52,7 +52,7 @@ const LumeDashboard = ({ children }: React.PropsWithChildren) => {
 
   return (
     <Dialog.Root>
-      <Trigger />
+      <Trigger {...props} />
       <Dialog.Portal>
         <Dialog.Overlay className="fixed z-40 inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
         <Dialog.Content className="fixed p-5 z-50 right-0 bottom-0 top-0 w-[300px] bg-neutral-950 text-white border-black border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500">
