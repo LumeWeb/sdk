@@ -38,7 +38,9 @@ const LumeDashboard = (props: any) => {
       </button>
     </LumeDashboardTrigger>
   );
-  const GivenTrigger = React.Children.toArray(children.children)
+  const GivenTrigger = React.Children.toArray(
+    children?.children || (children as any) || [],
+  )
     .filter((c) => {
       if (typeof c === "object") {
         //@ts-expect-error -- I dont know what the type of this should be, i just know that this works
