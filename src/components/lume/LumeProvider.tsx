@@ -127,6 +127,7 @@ const LumeProvider = ({ children }) => {
 
     const subDone = networkRegistry.subscribeToUpdates(() => {
       console.log("subscribeToUpdates triggered");
+      fetchAndUpdateNetworks();
     });
 
     return () => {
