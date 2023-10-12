@@ -15,8 +15,10 @@ const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
 export const LumeDashboardTrigger = Dialog.Trigger;
 LumeDashboardTrigger.displayName = "LumeDashboardTrigger";
 
-const LumeDashboard = ({children}: React.PropsWithChildren) => {
-  const { lume: { networks } } = useLume();
+const LumeDashboard = ({ children }: React.PropsWithChildren) => {
+  const {
+    lume: { networks },
+  } = useLume();
 
   const [uniqueNetworkTypes, setUniqueNetworkTypes] = useState<string[]>([]);
 
@@ -26,22 +28,24 @@ const LumeDashboard = ({children}: React.PropsWithChildren) => {
     setUniqueNetworkTypes(uniqueTypes);
   }, [networks]);
 
-  const DefaultTrigger = () => (
+  const DefaultTrigger = (props: any) => (
     <LumeDashboardTrigger asChild>
-      <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
+      <button
+        className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md"
+        {...props}>
         Open Dashboard
       </button>
     </LumeDashboardTrigger>
   );
   const GivenTrigger = React.Children.toArray(children)
     .filter((c) => {
-      console.log({component: c})
-      if(typeof c === 'object'){
+      console.log({ component: c });
+      if (typeof c === "object") {
         //@ts-expect-error -- I dont know what the type of this should be, i just know that this works
-        return c.type?.displayName === "LumeDashboardTrigger"
+        return c.type?.displayName === "LumeDashboardTrigger";
       }
 
-      return false
+      return false;
     })
     .at(0);
   const Trigger = GivenTrigger ? () => GivenTrigger : DefaultTrigger;
