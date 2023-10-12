@@ -30,9 +30,14 @@ const LumeDashboard = (props: any) => {
   }, [networks]);
 
   const DefaultTrigger = (props: any) => (
-    <LumeDashboardTrigger asChild>
+    <LumeDashboardTrigger asChild {...props}>
       <button
-        className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md"
+        className={cn(
+          "bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md",
+          {
+            "disabled:pointer-events-none disabled:opacity-50": props.disabled,
+          },
+        )}
         {...props}>
         Open Dashboard
       </button>
