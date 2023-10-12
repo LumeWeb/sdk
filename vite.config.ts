@@ -13,7 +13,11 @@ export default defineConfig({
   plugins: [
     svgr(),
     react(),
-    scopeTailwind({ react: true, prefix: TW_PREFIX, classNameTransformers: ['cn'] }),
+    scopeTailwind({
+      react: true,
+      prefix: TW_PREFIX,
+      classNameTransformers: ["cn"],
+    }),
     dts({
       tsconfigPath: "tsconfig.build.json",
     }),
@@ -49,7 +53,15 @@ export default defineConfig({
       output: {
         inlineDynamicImports: false,
       },
-      external: ["react", "react-dom"],
+      external: [
+        "react",
+        "react-dom",
+        "@lumeweb/libportal",
+        "@lumeweb/libweb",
+        "@lumeweb/libkernel/module",
+        "@lumeweb/libkernel/kernel",
+        "@lumeweb/libkernel",
+      ],
     },
   },
 });
