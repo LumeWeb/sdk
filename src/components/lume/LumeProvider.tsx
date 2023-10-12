@@ -30,7 +30,7 @@ type LumeObject = {
   networks: Network[];
 };
 
-type LumeContextType = {
+export type LumeContextType = {
   isLoggedIn: boolean;
   setIsLoggedIn: (value: boolean) => void;
   lume: LumeObject;
