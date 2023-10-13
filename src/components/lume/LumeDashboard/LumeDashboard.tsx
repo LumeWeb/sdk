@@ -117,6 +117,15 @@ const NetworkIndicator = ({ network }: { network: Network }) => {
     </div>
   );
 };
+function getTextDimensions(
+  fontSize: number,
+  ratios: { width: number; height: number },
+) {
+  const width = fontSize * ratios.width;
+  const height = fontSize * ratios.height;
+
+  return { width, height };
+}
 
 const CircularProgress = ({
   chain,
@@ -125,8 +134,35 @@ const CircularProgress = ({
   chain: Network;
   className?: string;
 }) => {
-  const progressOffset = ((100 - chain.sync) / 100) * 282.74; // These math are not mathing
-  const textOffset = (chain.sync / 100) * (30 - 44) + 44;
+  const [fontRatio, setFontRatio] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  const radius = 45;
+  const SVG_SIZE = radius * 2 + 10; // +10 to add some padding around
+  const STROKE_WIDTH = radius * 0.08; // 8% of the radius for the stroke width
+  const textSize = radius * 0.5; // half of the radius for text size
+
+  useEffect(() => {
+    const testText = document.createElement("span");
+    testText.style.fontSize = `${textSize}px`;
+    testText.style.position = "absolute";
+    testText.style.left = "-9999px";
+    testText.textContent = "The quick brown fox jumps over the lazy dog";
+    document.body.appendChild(testText);
+    const rect = testText.getBoundingClientRect();
+    setFontRatio({
+      width: rect.width / textSize,
+      height: rect.height / textSize,
+    });
+    document.body.removeChild(testText);
+  }, [textSize]);
+
+  const { width: textWidth } = getTextDimensions(textSize, fontRatio);
+
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * ((100 - chain.sync) / 100);
 
   return (
     <svg
@@ -134,38 +170,36 @@ const CircularProgress = ({
         className,
         chainIndicatorVariant({ syncState: chain.syncState }),
       ])}
-      width="36"
-      height="36"
-      viewBox="0 0 100 100"
+      width={SVG_SIZE}
+      height={SVG_SIZE}
+      viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       style={{ transform: "rotate(-90deg)" }}>
       <circle
-        r="45"
-        cx="50"
-        cy="50"
+        r={radius}
+        cx={SVG_SIZE / 2}
+        cy={SVG_SIZE / 2}
         fill="transparent"
         stroke="#e0e0e0"
-        strokeWidth="4px"
-        strokeDasharray="282.74px"
-        strokeDashoffset="0"></circle>
+        strokeWidth={STROKE_WIDTH}
+        strokeDasharray={`${circumference}px`}></circle>
       <circle
-        r="45"
-        cx="50"
-        cy="50"
+        r={radius}
+        cx={SVG_SIZE / 2}
+        cy={SVG_SIZE / 2}
         stroke="currentColor"
-        strokeWidth="4px"
+        strokeWidth={STROKE_WIDTH}
         strokeLinecap="round"
-        strokeDashoffset={`${progressOffset}px`}
+        strokeDashoffset={`${offset}px`}
         fill="transparent"
-        strokeDasharray="282.74px"></circle>
+        strokeDasharray={`${circumference}px`}></circle>
       <text
-        x={textOffset}
-        y="57.5px"
+        x={(SVG_SIZE - textWidth) / 2}
+        y={(SVG_SIZE + textSize) / 2} // Adding half of the text size for vertical centering
         fill="currentColor"
-        fontSize="26px"
-        fontWeight="normal"
-        style={{ transform: "rotate(90deg) translate(0px, -98px)" }}>
+        fontSize={`${textSize}px`}
+        fontWeight="normal">
         {chain.sync}
       </text>
     </svg>
