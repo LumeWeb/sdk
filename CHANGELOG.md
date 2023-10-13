@@ -1,3 +1,5 @@
+# [0.1.0-develop.34](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.33...v0.1.0-develop.34) (2023-10-13)
+
 # [0.1.0-develop.33](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.32...v0.1.0-develop.33) (2023-10-12)
 
 
