@@ -118,16 +118,6 @@ const NetworkIndicator = ({ network }: { network: Network }) => {
   );
 };
 
-function getTextDimensions(
-  fontSize: number,
-  ratios: { width: number; height: number },
-) {
-  const width = fontSize * ratios.width;
-  const height = fontSize * ratios.height;
-
-  return { width, height };
-}
-
 const CircularProgress = ({
   chain,
   className,
@@ -135,37 +125,13 @@ const CircularProgress = ({
   chain: Network;
   className?: string;
 }) => {
-  const [fontRatio, setFontRatio] = useState({
-    width: 0,
-    height: 0,
-  });
-  useEffect(() => {
-    const testText = document.createElement("span");
-    testText.style.fontSize = `${textSize}px`;
-    testText.style.position = "absolute";
-    testText.style.left = "-9999px"; // This effectively hides the element
-    testText.textContent = "The quick brown fox jumps over the lazy dog";
-
-    document.body.appendChild(testText);
-
-    const rect = testText.getBoundingClientRect();
-
-    setFontRatio({
-      width: rect.width / textSize,
-      height: rect.height / textSize,
-    });
-
-    // Clean up after measurements
-    document.body.removeChild(testText);
-  }, []);
-
-  const size = 55;
+  const size = 60;
   const progressWidth = 2;
   const circleWidth = 2;
   const radius = size / 2 - 10;
   const circumference = 2 * radius * Math.PI;
   const offset = circumference * ((100 - chain.sync) / 100);
-  const textSize = 11;
+  const fontSize = 15;
 
   return (
     <svg
@@ -200,12 +166,12 @@ const CircularProgress = ({
         fill="transparent"
         strokeDasharray={`${circumference}px`}></circle>
       <text
-        x="4px"
-        y="25px"
+        x="21px"
+        y="32px"
         fill="currentColor"
-        fontSize="26px"
+        fontSize={`${fontSize}px`}
         fontWeight="normal"
-        style={{ transform: "rotate(90deg) translate(0px, -32px)" }}>
+        style={{ transform: "rotate(90deg) translate(0px, -56px)" }}>
         {chain.sync}
       </text>
     </svg>
