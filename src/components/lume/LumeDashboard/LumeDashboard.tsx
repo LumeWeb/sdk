@@ -125,7 +125,7 @@ const CircularProgress = ({
   chain: Network;
   className?: string;
 }) => {
-  const size = 60;
+  const size = 70;
   const progressWidth = 2;
   const circleWidth = 2;
   const radius = size / 2 - 10;
@@ -166,12 +166,12 @@ const CircularProgress = ({
         fill="transparent"
         strokeDasharray={`${circumference}px`}></circle>
       <text
-        x="21px"
-        y="32px"
+        x="27px"
+        y="39px"
         fill="currentColor"
         fontSize={`${fontSize}px`}
         fontWeight="normal"
-        style={{ transform: "rotate(90deg) translate(0px, -56px)" }}>
+        style={{ transform: "rotate(90deg) translate(0px, -66px)" }}>
         {chain.sync}
       </text>
     </svg>
