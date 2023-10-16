@@ -1,8 +1,18 @@
 export {
-  default as LumeProvider,
-  useLume,
-  type LumeContextType,
-} from "./components/lume/LumeProvider";
+  default as AuthProvider,
+  useAuth,
+  type AuthContextType,
+} from "./components/AuthProvider";
+export {
+  default as NetworksProvider,
+  useNetworks,
+  type NetworksContextType,
+} from "./components/NetworksProvider";
+export {
+  default as LumeStatusProvider,
+  useLumeStatus,
+  type LumeStatusContext,
+} from "src/components/LumeStatusProvider.js";
 export {
   default as LumeDashboard,
   LumeDashboardTrigger,

@@ -10,7 +10,7 @@ import {
   ExclamationTriangleIcon,
 } from "@radix-ui/react-icons";
 import { AnimatePresence, m } from "framer-motion";
-import { useLumeIndentity } from "./LumeIdentityContext";
+import { useLumeIdentity } from "./LumeIdentityContext";
 import { useMemo, useState } from "react";
 
 import * as bip39 from "@scure/bip39";
@@ -54,7 +54,7 @@ const SubmitButtonComponent = () => {
 };
 
 const SeedPhraseInputComponent = () => {
-  const { signIn } = useLumeIndentity();
+  const { signIn } = useLumeIdentity();
   return (
     <m.form
       className="flex-col flex gap-y-4"
@@ -118,7 +118,7 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
     "idle" | "clicked"
   >("idle");
   const [step, setStep] = useState<number>(0);
-  const { signIn } = useLumeIndentity();
+  const { signIn } = useLumeIdentity();
 
   const phrases = useMemo(() => {
     return bip39
@@ -158,10 +158,12 @@ const SeedPhraseGenerationComponent = ({ phraseLength = 12 }) => {
           <div
             key={`SeedPhrase_${index}`}
             className={`${TW_PREFIX} relative justify-center items-center gap-2 flex h-10 rounded border border-current ring-current text-neutral-700 w-[calc(33%-8px)]`}>
-            <span className={`${TW_PREFIX} text-white text-md font-normal leading-normal w-full h-fit px-2 bg-transparent text-center`}>
+            <span
+              className={`${TW_PREFIX} text-white text-md font-normal leading-normal w-full h-fit px-2 bg-transparent text-center`}>
               {phrase}
             </span>
-            <span className={`${TW_PREFIX} left-[6px] top-0 absolute text-current text-xs font-normal leading-normal`}>
+            <span
+              className={`${TW_PREFIX} left-[6px] top-0 absolute text-current text-xs font-normal leading-normal`}>
               {index + 1}
             </span>
           </div>

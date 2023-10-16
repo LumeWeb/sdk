@@ -1,7 +1,7 @@
 import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import LumeIdentity from "../src/components/lume/LumeIdentity/LumeIdentity.js";
-import LumeProvider from "../src/components/lume/LumeProvider.js";
+import AuthProvider from "src/components/AuthProvider.js";
 
 export default {
   title: "LumeIdentity",
@@ -9,9 +9,9 @@ export default {
 } as Meta<typeof LumeIdentity>;
 
 const Template: StoryFn<typeof LumeIdentity> = (args) => (
-  <LumeProvider>
+  <AuthProvider>
     <LumeIdentity {...args} />
-  </LumeProvider>
+  </AuthProvider>
 );
 
 export const Primary = Template.bind({});

@@ -3,15 +3,15 @@ import {
   // loginComplete,
   // logoutComplete,
 } from "@lumeweb/libkernel/kernel";
-import { useLume } from "../LumeProvider";
 import React, { useContext } from "react";
+import { useAuth } from "../../AuthProvider.js";
 
 export const LumeIdentityContext = React.createContext<
   { open: boolean; setOpen: (open: boolean) => void } | undefined
 >(undefined);
 
-export function useLumeIndentity() {
-  const { isLoggedIn, setIsLoggedIn } = useLume();
+export function useLumeIdentity() {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const ctx = useContext(LumeIdentityContext);
 
   if (!ctx) {

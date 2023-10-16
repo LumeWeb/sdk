@@ -8,7 +8,6 @@ import {
 } from "react";
 import { createClient as createNetworkRegistryClient } from "@lumeweb/kernel-network-registry-client";
 import { createNetworkClient } from "@lumeweb/libkernel/module";
-import { init, loginComplete } from "@lumeweb/libkernel/kernel";
 
 type SyncState = "done" | "syncing" | "error";
 
@@ -26,45 +25,35 @@ interface NetworkStatus {
   error?: string;
 }
 
-type LumeObject = {
+export interface NetworksContextType {
   networks: Network[];
-};
-
-export type LumeContextType = {
-  isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
-  lume: LumeObject;
-  inited: boolean;
-  setInited: React.Dispatch<React.SetStateAction<boolean>>;
-  ready: boolean;
-  setReady: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  setNetworks: React.Dispatch<React.SetStateAction<Network[]>>;
+}
 
 const networkRegistry = createNetworkRegistryClient();
 
-const LumeContext = createContext<LumeContextType | undefined>(undefined);
+// Networks Context
+const NetworksContext = createContext<NetworksContextType | undefined>(
+  undefined,
+);
 
-const LumeProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [ready, setReady] = useState<boolean>(false);
-  const [inited, setInited] = useState<boolean>(false);
-  const [lume, setLume] = useState<LumeObject>({ networks: [] });
+const NetworksProvider = ({ children }) => {
+  const [networks, setNetworks] = useState<Network[]>([]);
   const statusUnsubs = useRef(new Map());
   const isMounted = useRef(true); // Use a ref to track mounting
 
   const handleStatusUpdate = useCallback((id, newNetwork) => {
-    setLume((prevLume) => {
-      const updatedNetworks = prevLume.networks.map((network) =>
+    setNetworks((prevNetworks) => {
+      return prevNetworks.map((network) =>
         network.id === id ? { ...network, ...newNetwork } : network,
       );
-      return { ...prevLume, networks: updatedNetworks };
     });
   }, []);
 
   const fetchAndUpdateNetworks = useCallback(async () => {
     const unsub = () => {
       statusUnsubs.current.forEach((unsub) => unsub());
-      statusUnsubs.current = new Map<any, any>();
+      statusUnsubs.current.clear();
     };
 
     try {
@@ -110,10 +99,7 @@ const LumeProvider = ({ children }) => {
       statusUnsubs.current = newStatusUnsubs;
 
       if (isMounted.current) {
-        setLume((prevLume) => ({
-          ...prevLume,
-          networks: Array.from(newNetworksMap.values()),
-        }));
+        setNetworks(Array.from(newNetworksMap.values()));
       } else {
         unsub();
       }
@@ -139,29 +125,18 @@ const LumeProvider = ({ children }) => {
   }, [fetchAndUpdateNetworks]);
 
   return (
-    <LumeContext.Provider
-      value={{
-        lume,
-        ready,
-        setReady,
-        isLoggedIn,
-        setIsLoggedIn,
-        inited,
-        setInited,
-      }}>
+    <NetworksContext.Provider value={{ networks, setNetworks }}>
       {children}
-    </LumeContext.Provider>
+    </NetworksContext.Provider>
   );
 };
 
-export default LumeProvider;
-
-export function useLume() {
-  const ctx = useContext(LumeContext);
-
-  if (!ctx) {
-    throw new Error("useLume must be used within a LumeProvider");
+export function useNetworks() {
+  const context = useContext(NetworksContext);
+  if (!context) {
+    throw new Error("useNetworks must be used within a NetworksProvider");
   }
-
-  return ctx;
+  return context;
 }
+
+export default NetworksProvider;

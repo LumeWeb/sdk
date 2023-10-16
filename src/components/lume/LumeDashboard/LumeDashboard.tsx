@@ -1,11 +1,11 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { Network, useLume } from "../LumeProvider";
 import Logo from "../../../assets/lume-logo.png";
 import { cva } from "class-variance-authority";
 import { cn } from "../../utils";
 import { useState, useEffect } from "react";
 import React from "react";
 import camelCase from "camelcase";
+import { useNetworks, type Network } from "../../NetworksProvider";
 
 const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   done: "Synced",
@@ -18,9 +18,7 @@ LumeDashboardTrigger.displayName = "LumeDashboardTrigger";
 
 const LumeDashboard = (props: any) => {
   const { children }: { children: React.PropsWithChildren } = props;
-  const {
-    lume: { networks },
-  } = useLume();
+  const { networks } = useNetworks();
 
   const [uniqueNetworkTypes, setUniqueNetworkTypes] = useState<string[]>([]);
 
