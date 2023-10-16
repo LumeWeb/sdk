@@ -1,3 +1,11 @@
+# [0.1.0-develop.38](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.37...v0.1.0-develop.38) (2023-10-16)
+
+
+### Bug Fixes
+
+* fix import path ([f1f5d24](https://git.lumeweb.com/LumeWeb/sdk/commit/f1f5d24efa38a7d21621d618e566fb46d12ea5a6))
+* remove extension from import ([cdf20a8](https://git.lumeweb.com/LumeWeb/sdk/commit/cdf20a85cc5797c5781ad3625fc892f258373852))
+
 # [0.1.0-develop.37](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.36...v0.1.0-develop.37) (2023-10-13)
 
 # [0.1.0-develop.36](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.35...v0.1.0-develop.36) (2023-10-13)
