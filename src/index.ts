@@ -11,7 +11,7 @@ export {
 export {
   default as LumeStatusProvider,
   useLumeStatus,
-  type LumeStatusContext,
+  type LumeStatusContextType,
 } from "./components/LumeStatusProvider";
 export {
   default as LumeDashboard,

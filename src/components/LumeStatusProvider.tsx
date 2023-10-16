@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, ReactNode } from "react";
 
 // LumeStatusContextType
-interface LumeStatusContextType {
+export interface LumeStatusContextType {
   inited: boolean;
   setInited: (value: boolean) => void;
   ready: boolean;
