@@ -12,7 +12,7 @@ export {
   default as LumeStatusProvider,
   useLumeStatus,
   type LumeStatusContext,
-} from "src/components/LumeStatusProvider.js";
+} from "src/components/LumeStatusProvider";
 export {
   default as LumeDashboard,
   LumeDashboardTrigger,
