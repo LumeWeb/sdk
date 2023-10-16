@@ -1,3 +1,10 @@
+# [0.1.0-develop.39](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.38...v0.1.0-develop.39) (2023-10-16)
+
+
+### Bug Fixes
+
+* export LumeStatusContextType ([d074ef5](https://git.lumeweb.com/LumeWeb/sdk/commit/d074ef507d30c94739f6a5e7aaf2af36ccbf7116))
+
 # [0.1.0-develop.38](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.37...v0.1.0-develop.38) (2023-10-16)
 
 
