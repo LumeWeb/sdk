@@ -1,3 +1,10 @@
+# [0.1.0-develop.44](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.43...v0.1.0-develop.44) (2023-10-20)
+
+
+### Bug Fixes
+
+* add postinstall for patch-package ([a1968f4](https://git.lumeweb.com/LumeWeb/sdk/commit/a1968f43d02193b2c4fe1b40db56afb60e64a7df))
+
 # [0.1.0-develop.43](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.42...v0.1.0-develop.43) (2023-10-20)
 
 
