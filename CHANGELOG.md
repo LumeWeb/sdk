@@ -1,3 +1,10 @@
+# [0.1.0-develop.42](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.41...v0.1.0-develop.42) (2023-10-20)
+
+
+### Bug Fixes
+
+* small ui problems ([2aa2a5f](https://git.lumeweb.com/LumeWeb/sdk/commit/2aa2a5ff30b43574e96b4057938a247ea72d446b))
+
 # [0.1.0-develop.41](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.40...v0.1.0-develop.41) (2023-10-20)
 
 
