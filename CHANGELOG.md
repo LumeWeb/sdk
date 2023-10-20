@@ -1,3 +1,10 @@
+# [0.1.0-develop.41](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.40...v0.1.0-develop.41) (2023-10-20)
+
+
+### Bug Fixes
+
+* patch ([fe8a6a7](https://git.lumeweb.com/LumeWeb/sdk/commit/fe8a6a7de4d2ba9a4918348b6139182cc1dac0ea))
+
 # [0.1.0-develop.40](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.39...v0.1.0-develop.40) (2023-10-20)
 
 
