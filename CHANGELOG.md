@@ -1,3 +1,10 @@
+# [0.1.0-develop.43](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.42...v0.1.0-develop.43) (2023-10-20)
+
+
+### Bug Fixes
+
+* positioning error ([88e08d1](https://git.lumeweb.com/LumeWeb/sdk/commit/88e08d13e27093768e3dfed3c015fefe7bb1bb8b))
+
 # [0.1.0-develop.42](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.41...v0.1.0-develop.42) (2023-10-20)
 
 
