@@ -1,3 +1,38 @@
+# [0.1.0-develop.43](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.42...v0.1.0-develop.43) (2023-10-20)
+
+
+### Bug Fixes
+
+* positioning error ([88e08d1](https://git.lumeweb.com/LumeWeb/sdk/commit/88e08d13e27093768e3dfed3c015fefe7bb1bb8b))
+
+# [0.1.0-develop.42](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.41...v0.1.0-develop.42) (2023-10-20)
+
+
+### Bug Fixes
+
+* small ui problems ([2aa2a5f](https://git.lumeweb.com/LumeWeb/sdk/commit/2aa2a5ff30b43574e96b4057938a247ea72d446b))
+
+# [0.1.0-develop.41](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.40...v0.1.0-develop.41) (2023-10-20)
+
+
+### Bug Fixes
+
+* patch ([fe8a6a7](https://git.lumeweb.com/LumeWeb/sdk/commit/fe8a6a7de4d2ba9a4918348b6139182cc1dac0ea))
+
+# [0.1.0-develop.40](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.39...v0.1.0-develop.40) (2023-10-20)
+
+
+### Bug Fixes
+
+* patch ([a7f5ee2](https://git.lumeweb.com/LumeWeb/sdk/commit/a7f5ee266d8021996d55b3241e517ae273cea6fd))
+
+# [0.1.0-develop.39](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.38...v0.1.0-develop.39) (2023-10-16)
+
+
+### Bug Fixes
+
+* export LumeStatusContextType ([d074ef5](https://git.lumeweb.com/LumeWeb/sdk/commit/d074ef507d30c94739f6a5e7aaf2af36ccbf7116))
+
 # [0.1.0-develop.38](https://git.lumeweb.com/LumeWeb/sdk/compare/v0.1.0-develop.37...v0.1.0-develop.38) (2023-10-16)
 
 

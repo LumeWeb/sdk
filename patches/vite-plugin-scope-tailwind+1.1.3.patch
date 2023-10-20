@@ -1,5 +1,5 @@
 diff --git a/node_modules/vite-plugin-scope-tailwind/dist/cjs/index.cjs b/node_modules/vite-plugin-scope-tailwind/dist/cjs/index.cjs
-index 0e337b0..530cd41 100644
+index 0e337b0..a4d7cbe 100644
 --- a/node_modules/vite-plugin-scope-tailwind/dist/cjs/index.cjs
 +++ b/node_modules/vite-plugin-scope-tailwind/dist/cjs/index.cjs
 @@ -1,2 +1,109 @@
@@ -103,18 +103,18 @@ index 0e337b0..530cd41 100644
 +            css: {
 +                postcss: {
 +                    plugins: [...n, ...R(o).map(_ => require(p.join(process.cwd(), 'node_modules', _))), S({
-+                        prefix: `${prefix || g}.`,
++                        prefix: `${prefix ? prefix : g}.`,
 +                        ignore: r
 +                    })]
 +                }
 +            }
 +        }
-+    }, transform: e ? $(prefix || g, classNameTransformers) : k(prefix || g)
++    }, transform: e ? $(prefix ? prefix : g, classNameTransformers) : k(prefix ? prefix : g)
 +})
 +module.exports = D
  //# sourceMappingURL=index.cjs.map
 diff --git a/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs b/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs
-index 9594d38..14bbb10 100644
+index 9594d38..c86b6da 100644
 --- a/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs
 +++ b/node_modules/vite-plugin-scope-tailwind/dist/es/index.mjs
 @@ -111,6 +111,8 @@ const S = ({
@@ -131,14 +131,14 @@ index 9594d38..14bbb10 100644
                (_) => require(p.join(process.cwd(), "node_modules", _))
              ),
 -            S({ prefix: `${g}.`, ignore: r })
-+            S({ prefix: `${prefix || g}.`, ignore: r })
++            S({ prefix: `${prefix ? prefix : g}.`, ignore: r })
            ]
          }
        }
      };
    },
 -  transform: e ? $(g) : k(g)
-+  transform: e ? $(prefix || g, classNameTransformers) : k(prefix || g )
++  transform: e ? $(prefix ? prefix : g, classNameTransformers) : k(prefix ? prefix : g )
  });
  export {
    M as default

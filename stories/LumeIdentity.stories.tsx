@@ -1,7 +1,7 @@
 import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import LumeIdentity from "../src/components/lume/LumeIdentity/LumeIdentity.js";
-import AuthProvider from "src/components/AuthProvider.js";
+import AuthProvider from "../src/components/AuthProvider.js";
 
 export default {
   title: "LumeIdentity",

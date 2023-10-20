@@ -1,4 +1,4 @@
-import React, { useState, type FC } from "react";
+import React, { useState, type FC, useRef, useEffect } from "react";
 import { Button } from "../../ui/button";
 import {
   SwitchableComponent,
@@ -111,6 +111,7 @@ export const LumeIdentityTrigger = Dialog.Trigger;
 LumeIdentityTrigger.displayName = "LumeIdentityTrigger";
 export default function Wrapped({ children }: React.PropsWithChildren) {
   const [open, setOpen] = useState(false);
+  const dialogContentEl = useRef<HTMLElement>();
   const DefaultTrigger = () => (
     <LumeIdentityTrigger asChild>
       <button className="bg-primary text-primary-foreground p-2 px-4 text-sm font-semibold font-mono rounded-md">
@@ -135,8 +136,8 @@ export default function Wrapped({ children }: React.PropsWithChildren) {
       <Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className="fixed z-40 inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
-        {/* @ditorodev: `left-[calc(50%-192px)] top-[calc(50vh-174px)]` these two are me being dumb and lazy, would be cool to fix with proper centering */}
-        <Dialog.Content className="absolute left-[calc(50%-192px)] top-[calc(50vh-174px)] mx-auto my-auto w-96 max-w-full h-auto z-40 flex items-center justify-center">
+        {/* @ditorodev: `left-[calc(50%-192px)]` these two are me being dumb and lazy, would be cool to fix with proper centering */}
+        <Dialog.Content className="absolute left-[calc(50%-192px)] top-12 mx-auto my-auto w-96 max-w-full h-auto z-40 flex items-center justify-center" >
           <SwitchableComponentProvider>
             <LumeIdentityContext.Provider value={{open, setOpen}}>
               <LumeIdentity />
