@@ -2,10 +2,10 @@ import * as Dialog from "@radix-ui/react-dialog";
 import Logo from "../../../assets/lume-logo.png";
 import { cva } from "class-variance-authority";
 import { cn } from "../../utils";
-import { useState, useEffect } from "react";
 import React from "react";
 import camelCase from "camelcase";
 import { useNetworks, type Network } from "../../NetworksProvider";
+import { TW_PREFIX } from "../../../../scoped-tailwind-prefix";
 
 const SYNCSTATE_TO_TEXT: Record<Network["syncState"], string> = {
   done: "Synced",
@@ -20,13 +20,8 @@ const LumeDashboard = (props: any) => {
   const { children }: { children: React.PropsWithChildren } = props;
   const { networks } = useNetworks();
 
-  const [uniqueNetworkTypes, setUniqueNetworkTypes] = useState<string[]>([]);
-
-  useEffect(() => {
-    const networkTypes = networks.map((network) => network.type);
-    const uniqueTypes = Array.from(new Set(networkTypes));
-    setUniqueNetworkTypes(uniqueTypes);
-  }, [networks]);
+  const networkTypes = networks.map((network) => network.type);
+  const uniqueNetworkTypes = Array.from(new Set(networkTypes));
 
   const DefaultTrigger = (props: any) => (
     <LumeDashboardTrigger asChild {...props}>
@@ -124,12 +119,12 @@ const CircularProgress = ({
   className?: string;
 }) => {
   const size = 70;
-  const progressWidth = 2;
-  const circleWidth = 2;
+  const progressWidth = size * 0.03;  // based on size
+  const circleWidth = size * 0.03;  // based on size
   const radius = size / 2 - 10;
   const circumference = 2 * radius * Math.PI;
   const offset = circumference * ((100 - chain.sync) / 100);
-  const fontSize = 15;
+  const fontSize = size * 0.2;  // based on size
 
   return (
     <svg
@@ -139,9 +134,7 @@ const CircularProgress = ({
       ])}
       width={size}
       height={size}
-      viewBox={`-${size * 0.125} -${size * 0.125} ${size * 1.25} ${
-        size * 1.25
-      }`}
+      viewBox={`0 0 ${size} ${size}`}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       style={{ transform: "rotate(-90deg)" }}>

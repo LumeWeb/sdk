@@ -1,7 +1,7 @@
 import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import LumeDashboard from "../src/components/lume/LumeDashboard/LumeDashboard.js";
-import NetworksProvider from "src/components/NetworksProvider.js";
+import NetworksProvider from "../src/components/NetworksProvider.js";
 
 export default {
   title: "LumeDashboard",

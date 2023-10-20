@@ -136,7 +136,7 @@ export default function Wrapped({ children }: React.PropsWithChildren) {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed z-40 inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
         {/* @ditorodev: `left-[calc(50%-192px)] top-[calc(50vh-174px)]` these two are me being dumb and lazy, would be cool to fix with proper centering */}
-        <Dialog.Content className="absolute left-[calc(50%-192px)] top-[calc(50vh-174px)] mx-auto my-auto w-96 max-w-full h-auto z-40 flex items-center justify-center">
+        <Dialog.Content className="absolute left-[calc(50%-192px)] mx-auto my-auto w-96 max-w-full h-auto z-40 flex items-center justify-center">
           <SwitchableComponentProvider>
             <LumeIdentityContext.Provider value={{open, setOpen}}>
               <LumeIdentity />
