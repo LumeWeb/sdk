@@ -1,19 +1,13 @@
 name: Build/Publish
 
 on:
-    push:
+  push:
+      branches:
+          - master
+          - develop
+          - develop-*
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v3
-            -   name: Use Node.js
-                uses: actions/setup-node@v3
-                with:
-                    node-version: 18.x
-                    cache: 'npm'
-            -   run: npm ci
-            -   run: npm run build --if-present
-                env:
-                    NODE_OPTIONS: "--max_old_space_size=4096"
+  main:
+      uses: lumeweb/github-node-deploy-workflow/.github/workflows/main.yml@master
+      secrets: inherit
