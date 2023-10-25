@@ -17,7 +17,5 @@ jobs:
             -   run: npm run build --if-present
                 env:
                     NODE_OPTIONS: "--max_old_space_size=4096"
-            -   name: Setup tmate session
-                uses: mxschmitt/action-tmate@v3
-                with:
-                    limit-access-to-actor: false
+
+            -   run: cat ./lib/style.css
