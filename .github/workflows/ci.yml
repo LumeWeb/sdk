@@ -17,5 +17,3 @@ jobs:
             -   run: npm run build --if-present
                 env:
                     NODE_OPTIONS: "--max_old_space_size=4096"
-
-            -   run: cat ./lib/index17.js
