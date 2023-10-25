@@ -1,7 +1,7 @@
 name: Build/Publish
 
 on:
-    workflow_call:
+    push:
 
 jobs:
     build:
